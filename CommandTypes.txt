@@ -1,0 +1,20 @@
+COMMAND TYPES:
+
+CHAT INPUT : 1 ( Normal Slash Command )
+USER       : 2 ( Right click a user > Apps )
+MESSAGE    : 3 ( Right click a message > Apps )
+---
+
+COMMAND OPTION TYPES:
+
+SUBCOMMAND          : 1
+SUBCOMMAND GROUP    : 2
+STRING              : 3
+INTEGER             : 4
+BOOLEAN             : 5
+USER                : 6
+CHANNEL             : 7 ( All channel types + categories )
+ROLE                : 8
+MENTIONABLE         : 9 ( Users and roles )
+NUMBER              : 10
+ATTACHMENT          : 11

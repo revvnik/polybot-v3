@@ -1,0 +1,35 @@
+{
+  "name": "polybot-v3",
+  "version": "0.0.1",
+  "description": "Third and currently last version of PolyBot.",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "node --require dotenv/config dist/index.js",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "build": "tsc --pretty",
+    "watch": "tsc -w",
+    "start": "npm run build && node --require dotenv/config dist/deploy-commands.js && npm run start:dev",
+    "deploy": "npm run build && node --require dotenv/config dist/deploy-commands.js"
+  },
+  "author": "polygon",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "colorts": "^0.1.63",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "forever-monitor": "^3.0.3",
+    "i18n": "^0.15.1",
+    "tsup": "^8.0.1",
+    "tsx": "^4.6.2",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.2"
+  }
+}
