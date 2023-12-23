@@ -1,2 +1,6 @@
 node_modules
 .vscode
+.replit
+replit.nix
+.git
+.config
