@@ -36,8 +36,7 @@ export default {
         
         const helpEmbed = new EmbedBuilder()
             .setDescription(`PolyBot Help | ${capitalizeFirstLetter(selectedOption)} \n`)
-
-        
+            .setColor("Random");
 
         // let str = "";
         for (const file of readAllFiles(path.join("./dist/commands"))) {
