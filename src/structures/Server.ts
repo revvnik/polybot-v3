@@ -1,7 +1,7 @@
 import { express } from "express";
 
 const server = express();
-server.all("/", (req, res) => {
+server.all("/", (res) => {
     res.send("Server online!");
 });
 
