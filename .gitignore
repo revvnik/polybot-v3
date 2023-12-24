@@ -8,3 +8,5 @@ replit.nix
 dist
 .firebaserc
 firebase.json
+CommandTypes.txt
+.firebase
