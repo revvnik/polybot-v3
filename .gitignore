@@ -6,3 +6,5 @@ replit.nix
 .config
 .env
 dist
+.firebaserc
+firebase.json
