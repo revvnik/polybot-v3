@@ -1,5 +1,5 @@
 import type { Collection } from 'discord.js';
-import type { Command } from './src/structures/command.js';
+import type { Command } from './functions/structures/command.js';
 
 declare global {
     namespace NodeJS {

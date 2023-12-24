@@ -9,7 +9,7 @@
     "start:dev": "node --require dotenv/config dist/index.js",
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
-    "build": "tsc --pretty",
+    "build": "netlify-lambda build src",
     "watch": "tsc -w",
     "start": "npm run build && node --require dotenv/config dist/deploy-commands.js && npm run start:dev",
     "deploy": "npm run build && node --require dotenv/config dist/deploy-commands.js"

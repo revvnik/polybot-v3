@@ -12,3 +12,7 @@ CommandTypes.txt
 .firebase
 firebase-debug.log
 .npmrc
+.babelrc
+netlify.toml
+# Local Netlify folder
+.netlify
