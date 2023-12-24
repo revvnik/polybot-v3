@@ -29,6 +29,6 @@
 		"skipDefaultLibCheck": true,
 		"importHelpers": true
 	},
-	"include": ["src/", "environment.d.ts"],
+	"include": ["functions/", "environment.d.ts"],
 	"exclude": ["node_modules", "dist"]
 }
