@@ -10,3 +10,5 @@ dist
 firebase.json
 CommandTypes.txt
 .firebase
+firebase-debug.log
+.npmrc
