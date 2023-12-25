@@ -54,7 +54,7 @@ const rest = new REST().setToken(process.env.DISCORD_TOKEN);
             `Successfully reloaded`.green.bold,
             `${data.length}`.blue.bold,
             `application (/) commands`.green.bold, 
-            `${process.env.GUILD_ID ? `in guild ${process.env.GUILD_ID.blue.bold}`.green.bold : ''}.`);
+            `${process.env.GUILD_ID ? `in guild ${process.env.GUILD_ID.blue.bold}`.green.bold : ''}.`); 
 	} catch (error) {
 		// And of course, make sure you catch and log any errors!
 		console.error(error);
