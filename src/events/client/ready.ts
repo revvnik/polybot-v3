@@ -6,7 +6,7 @@ export default {
     name: Events.ClientReady,
     once: true,
     async execute(client) {
-        console.log(`${client.user.username} is online`.green.bold);
+        console.log(`${client.user.username} is online!`.green.bold);
         client.user.setActivity({
             name: 'the development process', 
             type: ActivityType.Watching

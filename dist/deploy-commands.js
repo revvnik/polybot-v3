@@ -1,6 +1,7 @@
 import { REST, Routes, } from 'discord.js';
 import { fileURLToPath, URL } from 'node:url';
 import { loadStructures } from './misc/util.js';
+import "colorts/lib/string.js";
 const commands = [];
 const commandFolderPath = fileURLToPath(new URL('commands', import.meta.url));
 const commandFiles = await loadStructures(commandFolderPath, ['data', 'execute']);
@@ -13,7 +14,7 @@ const rest = new REST().setToken(process.env.DISCORD_TOKEN);
 // and deploy your commands!
 (async () => {
     try {
-        console.log(`Started refreshing ${commands.length} application (/) commands.`);
+        console.log(`Started refreshing`.green.bold, `${commands.length}`.blue.bold, `application (/) commands.`.green.bold);
         let data = [];
         if (process.env.GUILD_ID) {
             // The put method is used to fully refresh all commands in a guild with the current set
@@ -24,7 +25,7 @@ const rest = new REST().setToken(process.env.DISCORD_TOKEN);
             data = await rest.put(Routes.applicationCommands(process.env.CLIENT_ID), { body: commands });
         }
         ;
-        console.log(`Successfully reloaded ${data.length} application (/) commands ${process.env.GUILD_ID ? `in guild ${process.env.GUILD_ID}` : ''}.`);
+        console.log(`Successfully reloaded`.green.bold, `${data.length}`.blue.bold, `application (/) commands`.green.bold, `${process.env.GUILD_ID ? `in guild ${process.env.GUILD_ID.blue.bold}`.green.bold : ''}.`);
     }
     catch (error) {
         // And of course, make sure you catch and log any errors!

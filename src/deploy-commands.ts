@@ -9,7 +9,7 @@ import {
 import { fileURLToPath, URL } from 'node:url';
 
 import { loadStructures } from './misc/util.js';
-
+import "colorts/lib/string.js";
 import type { Command } from './structures/Command.js';
 
 const commands: RESTPostAPIApplicationCommandsJSONBody[] | RESTPostAPIApplicationGuildCommandsJSONBody[] = [];
@@ -28,7 +28,11 @@ const rest = new REST().setToken(process.env.DISCORD_TOKEN);
 // and deploy your commands!
 (async () => {
 	try {
-		console.log(`Started refreshing ${commands.length} application (/) commands.`);
+		console.log(
+            `Started refreshing`.green.bold,
+            `${commands.length}`.blue.bold,
+            `application (/) commands.`.green.bold
+        );
 
 		let data: RESTPutAPIApplicationCommandsJSONBody[] | RESTPutAPIApplicationGuildCommandsJSONBody[] = [];
 
@@ -46,7 +50,11 @@ const rest = new REST().setToken(process.env.DISCORD_TOKEN);
 			) as RESTPutAPIApplicationCommandsJSONBody[];
 		};
 
-		console.log(`Successfully reloaded ${data.length} application (/) commands ${process.env.GUILD_ID ? `in guild ${process.env.GUILD_ID}` : ''}.`);
+		console.log(
+            `Successfully reloaded`.green.bold,
+            `${data.length}`.blue.bold,
+            `application (/) commands`.green.bold, 
+            `${process.env.GUILD_ID ? `in guild ${process.env.GUILD_ID.blue.bold}`.green.bold : ''}.`);
 	} catch (error) {
 		// And of course, make sure you catch and log any errors!
 		console.error(error);

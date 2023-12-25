@@ -6,13 +6,5 @@ replit.nix
 .config
 .env
 dist
-.firebaserc
-firebase.json
 CommandTypes.txt
-.firebase
-firebase-debug.log
 .npmrc
-.babelrc
-netlify.toml
-# Local Netlify folder
-.netlify
