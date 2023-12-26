@@ -4,7 +4,7 @@ import { type PathLike, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import fs from "node:fs";
 import path from "node:path";
-import { Client } from "ssh2-sftp-client";
+import Client = require('ssh2-sftp-client');
 
 /**
  * This function gets the default export from a file.
@@ -141,20 +141,20 @@ export function capitalizeFirstLetter(string) {
 };
 
 export function uploadDistToRemote() {
-    const RemoteClient = new Client();
+    let RemoteClient = new Client();
     RemoteClient.connect({
         host: "node1.solonodes.net",
         port: 2022,
         username: "polygon.172a9511",
         password: "z7eT@`b4NSc2"
     }).then(async () => {
-        await RemoteClient.uploadDir("../../dist", "/");
-        console.log(
-            "Uploaded".green.bold,
-            "/dist/".blue.bold,
-            "to remote server!".green.bold
-        )
-    })
-
-
+        const src = path.join(process.cwd(), 'dist');
+        await RemoteClient.uploadDir(src, "/dist").then(() => {
+            console.log(
+                "Uploaded".green.bold,
+                "/dist/".blue.bold,
+                "to remote server!".green.bold
+            );
+        });
+    });
 };

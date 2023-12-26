@@ -17,6 +17,7 @@
   "author": "polygon",
   "license": "ISC",
   "dependencies": {
+    "@types/ssh2-sftp-client": "^9.0.3",
     "colors": "^1.4.0",
     "colorts": "^0.1.63",
     "discord.js": "^14.14.1",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "@types/node": "^20.10.5",
     "rimraf": "^5.0.5",
     "typescript": "^5.3.3"
   }
