@@ -48,7 +48,7 @@ export class ExtendedClient extends Client {
 
     private async connectToDatabase() {
         mongoose.set("strictQuery", true);
-        mongoose.connect(`mongodb+srv://${config.MONGODBUSERNAME}:${config.MONGODBPASSWORD}@dripdb.ofzip.mongodb.net/PolyBase?retryWrites=true&w=majority`)
+        await mongoose.connect(`mongodb+srv://${config.MONGODBUSERNAME}:${config.MONGODBPASSWORD}@dripdb.ofzip.mongodb.net/PolyBase?retryWrites=true&w=majority`)
         console.log("Database is online!".green.bold);
     }
 
@@ -57,7 +57,7 @@ export class ExtendedClient extends Client {
             const RestartTime = new Restart({
                 time: moment().format("DD-MM-YYYY HH:mm:ss")
             })
-            RestartTime.save();
+            await RestartTime.save();
             console.log(
                 "Last restart at:".green.bold,
                 `${moment().format("DD-MM-YYYY HH:mm:ss")}.`.blue.bold
@@ -77,4 +77,4 @@ export class ExtendedClient extends Client {
         this.logRestartToDatabase();
         uploadDistToRemote();
     };
-};
+}
