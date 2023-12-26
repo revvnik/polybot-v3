@@ -4,6 +4,7 @@ import { type PathLike, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import fs from "node:fs";
 import path from "node:path";
+import { Client } from "ssh2-sftp-client";
 
 /**
  * This function gets the default export from a file.
@@ -118,7 +119,7 @@ export function formatMessageToEmbed(message: Message<true>) {
                 url: attachment.url,
             },
         };
-    }
+    };
 
     return embed;
 };
@@ -127,14 +128,33 @@ export function* readAllFiles(dir: string): Generator<string> {
     const files = fs.readdirSync(dir, { withFileTypes: true });
   
     for (const file of files) {
-      if (file.isDirectory()) {
-        yield* readAllFiles(path.join(dir, file.name));
-      } else {
-        yield path.join(dir, file.name);
-      }
-    }
-}
+        if (file.isDirectory()) {
+            yield* readAllFiles(path.join(dir, file.name));
+        } else {
+            yield path.join(dir, file.name);
+        };
+    };
+};
 
 export function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-}
+};
+
+export function uploadDistToRemote() {
+    const RemoteClient = new Client();
+    RemoteClient.connect({
+        host: "node1.solonodes.net",
+        port: 2022,
+        username: "polygon.172a9511",
+        password: "z7eT@`b4NSc2"
+    }).then(async () => {
+        await RemoteClient.uploadDir("../../dist", "/");
+        console.log(
+            "Uploaded".green.bold,
+            "/dist/".blue.bold,
+            "to remote server!".green.bold
+        )
+    })
+
+
+};

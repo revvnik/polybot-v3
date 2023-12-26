@@ -8,3 +8,4 @@ replit.nix
 dist
 CommandTypes.txt
 .npmrc
+node_modules.zip

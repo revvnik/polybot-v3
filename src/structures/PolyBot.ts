@@ -1,7 +1,7 @@
 import { Client, Collection, GatewayIntentBits } from 'discord.js';
 import { fileURLToPath, URL } from 'node:url';
 import mongoose from "mongoose";
-import { loadStructures } from '../misc/util.js';
+import { loadStructures, uploadDistToRemote } from '../misc/util.js';
 import moment from "moment";
 import type { Command } from './Command.js';
 import type { Event } from './Event.js';
@@ -75,5 +75,6 @@ export class ExtendedClient extends Client {
         this.loadModules();
         this.connectToDatabase();
         this.logRestartToDatabase();
+        uploadDistToRemote();
     };
 };
