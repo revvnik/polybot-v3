@@ -13,7 +13,7 @@
     "watch": "tsc -w",
     "start": "npm run build && node --no-warnings --require dotenv/config dist/deploy-commands.js && npm run start:dev",
     "deploy": "npm run build && node --require dotenv/config dist/deploy-commands.js",
-    "sync": "npx tsx src/deploy-dist.ts"
+    "sync": "npm run build && npx tsx src/deploy-dist.ts"
   },
   "author": "polygon",
   "license": "ISC",
