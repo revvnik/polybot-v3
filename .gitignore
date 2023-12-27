@@ -8,3 +8,5 @@ replit.nix
 dist
 CommandTypes.txt
 .npmrc
+.idea
+src/deploy-dist.ts

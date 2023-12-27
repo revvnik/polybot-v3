@@ -12,7 +12,8 @@
     "build": "tsc --pretty",
     "watch": "tsc -w",
     "start": "npm run build && node --no-warnings --require dotenv/config dist/deploy-commands.js && npm run start:dev",
-    "deploy": "npm run build && node --require dotenv/config dist/deploy-commands.js"
+    "deploy": "npm run build && node --require dotenv/config dist/deploy-commands.js",
+    "sync": "npx tsx src/deploy-dist.ts"
   },
   "author": "polygon",
   "license": "ISC",
@@ -36,6 +37,7 @@
     "@types/express": "^4.17.21",
     "@types/node": "^20.10.5",
     "rimraf": "^5.0.5",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   }
 }

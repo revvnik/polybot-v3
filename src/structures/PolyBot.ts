@@ -1,12 +1,12 @@
 import { Client, Collection, GatewayIntentBits } from 'discord.js';
-import { fileURLToPath, URL } from 'node:url';
 import mongoose from "mongoose";
-import { loadStructures, uploadDistToRemote } from '../misc/util.js';
+import { loadStructures } from '../misc/util.js';
 import moment from "moment";
 import type { Command } from './Command.js';
-import type { Event } from './Event.js';
 import { config } from '../config.js';
 import { Restart } from '../models/Restart.js';
+import { fileURLToPath } from 'node:url';
+import { Event } from './Event.js';
 
 export class ExtendedClient extends Client {
     constructor() {
@@ -20,7 +20,7 @@ export class ExtendedClient extends Client {
                 timeout: 15_000
             },
         });
-        this.commands = new Collection<string, Command>();
+        this.commands = new Collection<string, Command>()
         this.cooldown = new Collection<string, Collection<string, number>>();
     };
 
@@ -28,8 +28,6 @@ export class ExtendedClient extends Client {
      * Loads all commands and events from their respective folders.
      */
     private async loadModules() {
-
-        // Command handling
         const commandFolderPath = fileURLToPath(new URL('../commands', import.meta.url));
         const commandFiles: Command[] = await loadStructures(commandFolderPath, ['data', 'execute']);
 
@@ -37,7 +35,6 @@ export class ExtendedClient extends Client {
             this.commands.set(command.data.name, command);
         }
 
-        // Event handling
         const eventFolderPath = fileURLToPath(new URL('../events', import.meta.url));
         const eventFiles: Event[] = await loadStructures(eventFolderPath, ['name', 'execute']);
 
@@ -75,6 +72,5 @@ export class ExtendedClient extends Client {
         this.loadModules();
         this.connectToDatabase();
         this.logRestartToDatabase();
-        uploadDistToRemote();
     };
 }
