@@ -1,8 +1,9 @@
 import { Events, inlineCode, Collection, bold } from 'discord.js';
 
-import { missingPerms } from '../../misc/util.js';
+import { hasPermission, missingPerms } from '../../misc/util.js';
 
 import type { Event } from '../../structures/Event.js';
+import { BotOwner } from '../../config.js';
 
 export default {
     name: Events.InteractionCreate,
@@ -20,6 +21,17 @@ export default {
             });
             return;
         };
+        if (command.owner && interaction.user.id !== BotOwner.userId) {
+            await interaction.reply({ content: "This is an owner only command!", ephemeral: true })
+        }
+        
+        const hasPermissionResult = await hasPermission(interaction.guild, interaction.user, command.permissions);
+        if (!hasPermissionResult) {
+            await interaction.reply({
+                content: "You do not have permission to use this command.",
+                ephemeral: true
+            });
+        }
 
         if (command.opt?.userPermissions) {
             const missingUserPerms = missingPerms(interaction.member.permissionsIn(interaction.channel), command.opt?.userPermissions) ?

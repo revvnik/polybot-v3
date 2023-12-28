@@ -1,25 +1,5 @@
-import type { CommandInteraction, PermissionResolvable, RESTPostAPIApplicationCommandsJSONBody, RESTPostAPIApplicationGuildCommandsJSONBody } from 'discord.js';
-
-interface CustomOptions {
-    name?: string;
-    description?: string;
-    /**
-     * The permissions the user needs to run the command
-     */
-    userPermissions?: PermissionResolvable[];
-    /**
-     * The permissions the bot needs to run the command
-     */
-    botPermissions?: PermissionResolvable[];
-    /**
-     * The category the command belongs to
-     */
-    category?: string;
-    /**
-     * The cooldown of the command in seconds
-     */
-    cooldown?: number;
-};
+import type { CommandInteraction, RESTPostAPIApplicationCommandsJSONBody, RESTPostAPIApplicationGuildCommandsJSONBody } from 'discord.js';
+import { CustomOptions } from "./Interfaces.js"
 
 /**
  * Defines the structure of a command.
@@ -27,6 +7,8 @@ interface CustomOptions {
 export type Command = {
     name: CustomOptions["name"];
     description: CustomOptions["description"];
+    owner?: CustomOptions["owner"];
+    customPermissions?: CustomOptions["customPermissions"];
     /**
      * The data for the command
      */

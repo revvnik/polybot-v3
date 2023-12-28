@@ -4,6 +4,8 @@ import { type PathLike, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import fs from "node:fs";
 import path from "node:path";
+import { CustomPermissions } from "../models/CustomPermissions.js";
+import { BotOwner } from '../config.js';
 
 /**
  * This function gets the default export from a file.
@@ -139,3 +141,30 @@ export function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
+export async function hasPermission(guild, user, permission) {
+    // Check if user is guild owner
+    if(guild.ownerId === user.id) {
+        return true;
+    };
+
+    const CustomUserPermissions = await CustomPermissions.findOne({
+        guildId: guild.id,
+        userId: user.id,
+    }).lean().exec();
+
+    if (!CustomUserPermissions) {
+        return false;
+    }
+
+    CustomUserPermissions.UserPermissions = CustomUserPermissions.UserPermissions || [];
+
+    if (!CustomUserPermissions.UserPermissions) {
+        return false;
+    }
+
+    if (user.id === BotOwner.userId && BotOwner.permission === 'POLYBOT.ALL') {
+        return true; // Bot owner always has the POLYBOT.OWNER permission
+    }
+
+    return CustomUserPermissions.UserPermissions.includes(permission);
+};

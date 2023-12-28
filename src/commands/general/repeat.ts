@@ -1,11 +1,10 @@
 import { type ChatInputCommandInteraction, ApplicationCommandType, TextChannel, ChannelType } from 'discord.js';
-import * as Discord from "discord.js"
-
 import type { Command } from '../../structures/Command.js';
 
 export default {
     name: "Repeat",
     description: "Repeats a message as the bot.",
+    customPermissions: ["POLYBOT.ALL"],
     data: {
         name: 'repeat',
         description: 'Repeat a message!',
@@ -35,20 +34,13 @@ export default {
         const toRepeat = interaction.options.getString("message");
         const channelToSend = interaction.options.getChannel("channel") || interaction.channel;
 
-        if(channelToSend !== Discord.ChannelType.GuildText[0]) {
-            interaction.reply({
-                content: "The selected channel is not a text channel!",
-                ephemeral: true
-            })
-        } else {
-            (channelToSend as TextChannel).send({
-                content: toRepeat
-            })
+        (channelToSend as TextChannel).send({
+            content: toRepeat
+        })
     
-            interaction.reply({
-                content: "Message sent!",
-                ephemeral: true
-            })
-        }
+        interaction.reply({
+            content: "Message sent!",
+            ephemeral: true
+        })
     }
 } satisfies Command;

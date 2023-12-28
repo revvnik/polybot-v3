@@ -6,6 +6,7 @@ import { sendWebhook } from '../../misc/webhooks.js';
 export default {
     name: "SendWebhook",
     description: "Sends a webhook message.",
+    owner: true,
     data: {
         name: 'webhook',
         description: 'Send, edit or delete a webhook message.',

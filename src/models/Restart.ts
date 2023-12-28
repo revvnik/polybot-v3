@@ -7,4 +7,4 @@ const RestartSchema = new Schema ({
     }
 })
 
-export const Restart = model("Restart", RestartSchema)
+export default model("Restart", RestartSchema)

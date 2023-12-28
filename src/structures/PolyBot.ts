@@ -4,7 +4,7 @@ import { loadStructures } from '../misc/util.js';
 import moment from "moment";
 import type { Command } from './Command.js';
 import { config } from '../config.js';
-import { Restart } from '../models/Restart.js';
+import Restart from '../models/Restart.js';
 import { fileURLToPath } from 'node:url';
 import { Event } from './Event.js';
 
@@ -20,7 +20,7 @@ export class ExtendedClient extends Client {
                 timeout: 15_000
             },
         });
-        this.commands = new Collection<string, Command>()
+        this.commands = new Collection<string, Command>();
         this.cooldown = new Collection<string, Collection<string, number>>();
     };
 
