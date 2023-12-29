@@ -24,3 +24,8 @@ export const BotOwner = {
     userId: '774217476073848862',
     permission: 'POLYBOT.ALL'
 }
+
+export const GuildOwner = {
+    userId: String,
+    permission: 'POLYBOT.SERVER_OWNER'
+}

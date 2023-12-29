@@ -10,3 +10,4 @@ CommandTypes.txt
 .npmrc
 .idea
 src/deploy-dist.ts
+src/delete-commands.temp.ts

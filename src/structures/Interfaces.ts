@@ -28,3 +28,11 @@ export interface ICustomPermissions {
     GuildID: String;
     UserPermissions?: String[];
 }
+
+export interface IRestart {
+    time: String;
+}
+
+export interface IGuild {
+    
+}

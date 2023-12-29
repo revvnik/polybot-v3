@@ -166,5 +166,7 @@ export async function hasPermission(guild, user, permission) {
         return true; // Bot owner always has the POLYBOT.OWNER permission
     }
 
+    if(user.id === guild.ownerId)
+
     return CustomUserPermissions.UserPermissions.includes(permission);
 };

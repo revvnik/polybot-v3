@@ -22,15 +22,19 @@ export default {
             return;
         };
         if (command.owner && interaction.user.id !== BotOwner.userId) {
-            await interaction.reply({ content: "This is an owner only command!", ephemeral: true })
+            await interaction.deferReply({ ephemeral: true });
+            await interaction.followUp({ content: "This is an owner only command!", ephemeral: true });
+            return;
         }
         
         const hasPermissionResult = await hasPermission(interaction.guild, interaction.user, command.permissions);
         if (!hasPermissionResult) {
-            await interaction.reply({
+            await interaction.deferReply({ ephemeral: true });
+            await interaction.followUp({
                 content: "You do not have permission to use this command.",
                 ephemeral: true
             });
+            return;
         }
 
         if (command.opt?.userPermissions) {

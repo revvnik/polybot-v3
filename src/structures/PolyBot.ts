@@ -4,7 +4,7 @@ import { loadStructures } from '../misc/util.js';
 import moment from "moment";
 import type { Command } from './Command.js';
 import { config } from '../config.js';
-import Restart from '../models/Restart.js';
+import { Restart } from '../models/Restart.js';
 import { fileURLToPath } from 'node:url';
 import { Event } from './Event.js';
 
