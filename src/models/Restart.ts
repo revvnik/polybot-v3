@@ -1,11 +1,11 @@
 import { Schema, model } from "mongoose";
-import { IRestart } from "../structures/Interfaces.js";
+import { IRestartDocument } from "../structures/Interfaces.js";
 
-const RestartSchema = new Schema<IRestart>({
+const RestartSchema = new Schema<IRestartDocument>({
     time: {
         type: String,
         default: Date
     }
 })
 
-export const Restart = model<IRestart>("Restart", RestartSchema)
+export const Restart = model<IRestartDocument>("Restart", RestartSchema)

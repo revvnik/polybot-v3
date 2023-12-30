@@ -1,0 +1,14 @@
+{
+    "POLYBOT.MANAGE_USERS": [
+        { "name": "Manage users" },
+        { "description": "Allows custom user management, such as banning, warning, muting and more." }
+    ],
+    "POLYBOT.MANAGE_SERVER": [
+        { "name": "Manage server" },
+        { "description": "Allows custom server management, such as changing the announcement options, enabling or disabling commands." }
+    ],
+    "POLYBOT.MANAGE_PERMISSIONS": [
+        { "name": "Manage permissions" },
+        { "description": "Allows custom permission management. Only the server owner should have this to prevent abuse." }
+    ]
+}

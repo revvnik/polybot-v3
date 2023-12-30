@@ -1,17 +1,17 @@
 import { Schema, model } from "mongoose";
-import { ICustomPermissions } from "../structures/Interfaces.js";
+import { ICustomPermissionsDocument } from "../structures/Interfaces.js";
 
-const CustomPermissionsSchema = new Schema<ICustomPermissions>({
+const CustomPermissionsSchema = new Schema<ICustomPermissionsDocument>({
     UserID: {
         type: String
     },
     GuildID: {
         type: String
     },
-    UserPermissions: {
-        type: [String],
-        default: []
+    UserPermissions: { 
+        type: [Array], 
+        default: [] 
     }
 });
 
-export const CustomPermissions = model<ICustomPermissions>("CustomPermissions", CustomPermissionsSchema)
+export const CustomPermissions = model<ICustomPermissionsDocument>("CustomPermissions", CustomPermissionsSchema)

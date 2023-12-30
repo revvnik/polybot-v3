@@ -1,6 +1,6 @@
 import { type ChatInputCommandInteraction, ApplicationCommandType } from 'discord.js';
 import type { Command } from '../../structures/Command.js';
-import * as webhooks from "../../misc/webhooks.json" assert { type: "json" };
+import * as webhooks from "../../json/Webhooks.json" assert { type: "json" };
 import { sendWebhook } from '../../misc/webhooks.js';
 
 export default {

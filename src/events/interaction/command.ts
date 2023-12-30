@@ -10,6 +10,7 @@ export default {
     async execute(interaction) {
         if (!interaction.isCommand()) return;
         if (!interaction.inCachedGuild()) return;
+        if (!interaction.inGuild()) return;
 
         const command = interaction.client.commands.get(interaction.commandName);
 
@@ -21,17 +22,33 @@ export default {
             });
             return;
         };
+
+        if(interaction.isAutocomplete()) {
+            await command.autocomplete(interaction);
+        }
+
         if (command.owner && interaction.user.id !== BotOwner.userId) {
             await interaction.deferReply({ ephemeral: true });
-            await interaction.followUp({ content: "This is an owner only command!", ephemeral: true });
+            await interaction.followUp({ 
+                content: "⚠️ This is an owner only command!", 
+                ephemeral: true 
+            });
+            return;
+        }
+        if(command.serverOwner && interaction.user.id !== interaction.guild.ownerId) {
+            await interaction.deferReply({ ephemeral: true })
+            await interaction.followUp({
+                content: "⚠️ Only the server owner can execute this command.",
+                ephemeral: true
+            });
             return;
         }
         
-        const hasPermissionResult = await hasPermission(interaction.guild, interaction.user, command.permissions);
+        const hasPermissionResult = await hasPermission(interaction.guild, interaction.user, command.customPermissions);
         if (!hasPermissionResult) {
             await interaction.deferReply({ ephemeral: true });
             await interaction.followUp({
-                content: "You do not have permission to use this command.",
+                content: `⚠️ You need the following permission${command.customPermissions.length > 1 ? "s" : ""}: **${command.customPermissions}**`,
                 ephemeral: true
             });
             return;

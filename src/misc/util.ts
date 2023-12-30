@@ -148,8 +148,8 @@ export async function hasPermission(guild, user, permission) {
     };
 
     const CustomUserPermissions = await CustomPermissions.findOne({
-        guildId: guild.id,
-        userId: user.id,
+        GuildID: guild.id,
+        UserID: user.id,
     }).lean().exec();
 
     if (!CustomUserPermissions) {

@@ -67,8 +67,8 @@ export class ExtendedClient extends Client {
     /**
      * This is used to log into the Discord API with loading all commands and events.
      */
-    start() {
-        this.login();
+    async start() {
+        await this.login();
         this.loadModules();
         this.connectToDatabase();
         this.logRestartToDatabase();
