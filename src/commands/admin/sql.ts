@@ -1,18 +1,19 @@
 import { type ChatInputCommandInteraction, ApplicationCommandType, EmbedBuilder, ApplicationCommandOptionType } from 'discord.js';
 import type { Command } from '../../structures/Command.js';
+import { connection } from '../../misc/util.js';
 
 export default {
-    name: "Eval",
-    description: "Evaluate JavaScript code.",
+    name: "Sql",
+    description: "Execute SQL queries.",
     owner: true,
     data: {
-        name: 'eval',
-        description: 'Evaluate JavaScript code.',
+        name: 'sql',
+        description: 'Execute SQL queries.',
         type: ApplicationCommandType.ChatInput,
         options: [
             {
-                name: "code",
-                description: "The code to evaluate.",
+                name: "query",
+                description: "The query to execute.",
                 type: ApplicationCommandOptionType.String,
                 required: true // String type by default
             }
@@ -26,19 +27,22 @@ export default {
     },
     async execute(interaction: ChatInputCommandInteraction<'cached'>) {
         
-        const toEvaluate = interaction.options.getString("code");
-        const isEvaluated = eval(toEvaluate);
+        const query = interaction.options.getString("query");
+        const output = connection.query(query, function (err, result) {
+            if (err) console.log(err);
+            console.log("Query executed " + result);
+        });
 
         const evaluateEmbed = new EmbedBuilder()
         .setColor("#36393F")
         .addFields(
           {
             name: "<a:1830vegarightarrow:1081563370882351174> Input",
-            value: `\`\`\`${toEvaluate}\`\`\``,
+            value: `\`\`\`${query}\`\`\``,
           },
           {
             name: "<a:8826vegaleftarrow:1081563410346541167> Output",
-            value: `\`\`\`${isEvaluated}\`\`\``,
+            value: `\`\`\`${output}\`\`\``,
           }
         );
         await interaction.reply({ embeds: [evaluateEmbed] });

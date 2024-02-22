@@ -4,8 +4,8 @@ import { type PathLike, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import fs from "node:fs";
 import path from "node:path";
-import { CustomPermissions } from "../models/CustomPermissions.js";
-import { BotOwner } from '../config.js';
+import * as mysql from "mysql";
+// import { BotOwner } from '../config.js';
 
 /**
  * This function gets the default export from a file.
@@ -141,6 +141,34 @@ export function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
+export const connection = mysql.createConnection({
+    host: "sql11.freemysqlhosting.net",
+    user: "sql11685896",
+    password: "WJrSHCPApC",
+    database: "sql11685896",
+    port: 3306
+})
+
+import express from "express";
+export function startServer() {
+    const app = express();
+    const port = 7096;
+
+    app.get('/', (_req, res) => {
+        res.send('Hello World!')
+    })
+    
+    app.post('/', (_req, res) => {
+        res.send('Got a POST request')
+        console.log("Got a POST request")
+    })
+
+    app.listen(port, "0.0.0.0", () => {
+        console.log(`Example app listening on port ${port}`)
+    })
+}
+
+/* 
 export async function hasPermission(guild, user, permission) {
     // Check if user is guild owner
     if(guild.ownerId === user.id) {
@@ -170,3 +198,4 @@ export async function hasPermission(guild, user, permission) {
 
     return CustomUserPermissions.UserPermissions.includes(permission);
 };
+*/

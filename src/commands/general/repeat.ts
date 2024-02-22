@@ -1,4 +1,4 @@
-import { type ChatInputCommandInteraction, ApplicationCommandType, TextChannel, ChannelType } from 'discord.js';
+import { type ChatInputCommandInteraction, ApplicationCommandType, TextChannel, ChannelType, ApplicationCommandOptionType } from 'discord.js';
 import type { Command } from '../../structures/Command.js';
 
 export default {
@@ -13,13 +13,13 @@ export default {
             {
                 name: "message",
                 description: "The message to repeat",
-                type: 3,
+                type: ApplicationCommandOptionType.String,
                 required: true // String type by default
             },
             {
                 name: "channel",
                 description: "The channel to send the message in",
-                type: 7,
+                type: ApplicationCommandOptionType.Channel,
                 channel_types: [ChannelType.GuildText]
             }
         ]

@@ -1,6 +1,6 @@
 import { Events, inlineCode, Collection, bold } from 'discord.js';
 
-import { hasPermission, missingPerms } from '../../misc/util.js';
+import { missingPerms } from '../../misc/util.js';
 
 import type { Event } from '../../structures/Event.js';
 import { BotOwner } from '../../config.js';
@@ -43,7 +43,7 @@ export default {
             });
             return;
         }
-        
+        /* 
         const hasPermissionResult = await hasPermission(interaction.guild, interaction.user, command.customPermissions);
         if (!hasPermissionResult) {
             await interaction.deferReply({ ephemeral: true });
@@ -52,7 +52,7 @@ export default {
                 ephemeral: true
             });
             return;
-        }
+        } */
 
         if (command.opt?.userPermissions) {
             const missingUserPerms = missingPerms(interaction.member.permissionsIn(interaction.channel), command.opt?.userPermissions) ?

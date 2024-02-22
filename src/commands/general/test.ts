@@ -1,6 +1,7 @@
 import { type ChatInputCommandInteraction } from 'discord.js';
 
 import type { Command } from '../../structures/Command.js';
+import { connection } from '../../misc/util.js';
 
 export default {
     name: "Test",
@@ -8,11 +9,6 @@ export default {
     data: {
         name: 'test',
         description: 'See if the command is working!',
-        options: [{
-            "name": "testinput",
-            "description": "This is a test input",
-            "type": 3
-        }]
     },
     opt: {
         userPermissions: ['SendMessages'],
@@ -21,9 +17,13 @@ export default {
         cooldown: 5
     },
     async execute(interaction: ChatInputCommandInteraction<'cached'>) {
-        const givenInput = interaction.options.getString("testinput")
+
+        connection.query("CREATE TABLE users (username VARCHAR(255), userId VARCHAR(255))", function (err, result) {
+            if (err) throw err;
+            console.log("Table created " + result);
+        });
         interaction.reply({
-            content: "The test worked!" + givenInput
+            content: "The test worked!"
         })
     }
 } satisfies Command;

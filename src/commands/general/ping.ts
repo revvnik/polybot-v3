@@ -1,5 +1,5 @@
 import { type ChatInputCommandInteraction, inlineCode, RESTJSONErrorCodes, time, TimestampStyles, ApplicationCommandType } from 'discord.js';
-
+import { Emoji } from '../../structures/Enums.js';
 import type { Command } from '../../structures/Command.js';
 
 import wait from 'node:timers/promises';
@@ -32,7 +32,7 @@ export default {
         };
 
         const msg = await interaction.reply({
-            content: '🏓 Pinging...',
+            content: `${Emoji.StatusIdle} Pinging...`,
             fetchReply: true
         });
 
@@ -42,7 +42,7 @@ export default {
             const ping = msg.createdTimestamp - interaction.createdTimestamp;
 
             await interaction.editReply({
-                content: `Pong 🏓! \nRoundtrip Latency is ${inlineCode(`${ping}ms`)}. \nWebsocket Heartbeat is ${inlineCode(`${interaction.client.ws.ping}ms`)}`
+                content: `${Emoji.StatusOnline} Roundtrip Latency is ${inlineCode(`${ping}ms`)}. \nWebsocket Heartbeat is ${inlineCode(`${interaction.client.ws.ping}ms`)}`
             })
         } catch (error) {
             if (error.code === RESTJSONErrorCodes.UnknownMessage) {

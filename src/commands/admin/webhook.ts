@@ -4,7 +4,7 @@ import * as webhooks from "../../json/Webhooks.json" assert { type: "json" };
 import { sendWebhook } from '../../misc/webhooks.js';
 
 export default {
-    name: "SendWebhook",
+    name: "Webhook",
     description: "Sends a webhook message.",
     owner: true,
     data: {

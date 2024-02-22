@@ -1,6 +1,6 @@
 import { Events } from 'discord.js';
 import GuildSettings from "../../models/Guild.js";
-import { CustomPermissions } from "../../models/CustomPermissions.js";
+// import { CustomPermissions } from "../../models/CustomPermissions.js";
 
 import type { Event } from '../../structures/Event.js';
 
@@ -17,6 +17,7 @@ export default {
             GuildID: guild.id
         });
 
+        /* 
         const members = await guild.members.fetch();
 
         for(const id of members.keys()) {
@@ -26,5 +27,6 @@ export default {
                 UserPermissions: []
             });
         }
+        */ 
     }
 } satisfies Event<Events.GuildCreate>;

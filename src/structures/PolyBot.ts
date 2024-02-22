@@ -1,6 +1,6 @@
-import { Client, Collection, GatewayIntentBits } from 'discord.js';
+import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
 import mongoose from "mongoose";
-import { loadStructures } from '../misc/util.js';
+import { connection, loadStructures } from '../misc/util.js';
 import moment from "moment";
 import type { Command } from './Command.js';
 import { config } from '../config.js';
@@ -13,6 +13,10 @@ export class ExtendedClient extends Client {
         super({
             intents: [
                 GatewayIntentBits.Guilds,
+            ],
+            partials: [
+                Partials.GuildMember, 
+                Partials.Channel
             ],
             failIfNotExists: false,
             rest: {
@@ -27,7 +31,7 @@ export class ExtendedClient extends Client {
     /**
      * Loads all commands and events from their respective folders.
      */
-    private async loadModules() {
+    async loadModules() {
         const commandFolderPath = fileURLToPath(new URL('../commands', import.meta.url));
         const commandFiles: Command[] = await loadStructures(commandFolderPath, ['data', 'execute']);
 
@@ -64,13 +68,24 @@ export class ExtendedClient extends Client {
         }
     }
 
+    private async logRestartToSQL() {
+        connection.connect();
+        connection.query("INSERT INTO restarts (time) VALUES (CURRENT_TIMESTAMP)", function (err, _result) {
+            if (err) console.log(err);
+            console.log("Logged restart to MySQL.");
+        });
+        connection.close();
+    }
+
     /**
      * This is used to log into the Discord API with loading all commands and events.
      */
     async start() {
-        await this.login();
-        this.loadModules();
-        this.connectToDatabase();
-        this.logRestartToDatabase();
+        await this.login(config.DISCORD_TOKEN);
+        await this.loadModules();
+        await this.connectToDatabase();
+        await this.logRestartToDatabase();
+        await this.logRestartToSQL();
     };
 }
+

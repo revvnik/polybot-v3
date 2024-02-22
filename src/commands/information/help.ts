@@ -1,4 +1,4 @@
-import { type ChatInputCommandInteraction, ApplicationCommandType, EmbedBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction, ApplicationCommandType, EmbedBuilder, ApplicationCommandOptionType } from 'discord.js';
 import type { Command } from '../../structures/Command.js';
 
 import { dynamicImport, readAllFiles, capitalizeFirstLetter } from '../../misc/util.js';
@@ -15,7 +15,7 @@ export default {
         options: [{
             "name": "page",
             "description": "Select a specific category. Select all to see all commands and descriptions.",
-            "type": 3,
+            "type": ApplicationCommandOptionType.String,
             "required": true,
             "choices": [
                 {
