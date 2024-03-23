@@ -1,8 +1,8 @@
 import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, type MessageContextMenuCommandInteraction } from 'discord.js';
 
-import { formatMessageToEmbed } from '../../misc/util.js';
+import { formatMessageToEmbed } from '../../Miscellaneous/util.js';
 
-import type { Command } from '../../structures/Command.js';
+import type { Command } from '../../Structures/Types/Command.js';
 
 export default {
     name: "Echo",

@@ -1,12 +1,10 @@
 import type { PermissionResolvable } from "discord.js";
-import { Document } from "mongoose";
 
 export interface ICustomOptionsDocument {
     name?: string;
     description?: string;
     owner?: boolean,
     serverOwner?: boolean,
-    customPermissions?: [String],
     /**
      * The permissions the user needs to run the command
      */
@@ -23,18 +21,8 @@ export interface ICustomOptionsDocument {
      * The cooldown of the command in seconds
      */
     cooldown?: number;
-};
-
-export interface ICustomPermissionsDocument extends Document {
-    UserID: String;
-    GuildID: String;
-    UserPermissions?: Array<string>;
 }
 
 export interface IRestartDocument {
     time: String;
-}
-
-export interface IGuildDocument {
-    
 }

@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { IRestartDocument } from "../structures/Interfaces.js";
+import { IRestartDocument } from "../Interfaces.js";
 
 const RestartSchema = new Schema<IRestartDocument>({
     time: {

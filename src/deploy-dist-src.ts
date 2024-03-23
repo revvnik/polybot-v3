@@ -1,4 +1,6 @@
+// @ts-ignore
 import path from 'node:path';
+// @ts-ignore
 import Client from 'ssh2-sftp-client';
 import "colorts/lib/string";
 

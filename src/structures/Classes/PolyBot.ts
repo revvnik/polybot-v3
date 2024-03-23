@@ -1,12 +1,12 @@
 import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
 import mongoose from "mongoose";
-import { connection, loadStructures } from '../misc/util.js';
+import {loadStructures} from '../../Miscellaneous/util.js';
 import moment from "moment";
-import type { Command } from './Command.js';
-import { config } from '../config.js';
-import { Restart } from '../models/Restart.js';
+import type { Command } from '../Types/Command.js';
+import { config } from '../../config.js';
+import { Restart } from '../Schemas/Restart.js';
 import { fileURLToPath } from 'node:url';
-import { Event } from './Event.js';
+import { Event } from '../Types/Event.js';
 
 export class ExtendedClient extends Client {
     constructor() {
@@ -68,24 +68,23 @@ export class ExtendedClient extends Client {
         }
     }
 
+    /*
     private async logRestartToSQL() {
-        connection.connect();
         connection.query("INSERT INTO restarts (time) VALUES (CURRENT_TIMESTAMP)", function (err, _result) {
             if (err) console.log(err);
             console.log("Logged restart to MySQL.");
         });
-        connection.close();
-    }
 
+    }
+    */
     /**
      * This is used to log into the Discord API with loading all commands and events.
      */
     async start() {
-        await this.login(config.DISCORD_TOKEN);
-        await this.loadModules();
-        await this.connectToDatabase();
-        await this.logRestartToDatabase();
-        await this.logRestartToSQL();
+        this.login(config.DISCORD_TOKEN);
+        this.loadModules();
+        this.connectToDatabase();
+        this.logRestartToDatabase();
     };
 }
 

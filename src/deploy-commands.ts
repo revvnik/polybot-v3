@@ -8,9 +8,9 @@ import {
 } from 'discord.js';
 import { fileURLToPath, URL } from 'node:url';
 
-import { loadStructures } from './misc/util.js';
+import { loadStructures } from './Miscellaneous/util.js';
 import "colorts/lib/string.js";
-import type { Command } from './structures/Command.js';
+import type { Command } from './Structures/Types/Command.js';
 
 const commands: RESTPostAPIApplicationCommandsJSONBody[] | RESTPostAPIApplicationGuildCommandsJSONBody[] = [];
 

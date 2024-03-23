@@ -1,7 +1,6 @@
 import { type ChatInputCommandInteraction } from 'discord.js';
 
-import type { Command } from '../../structures/Command.js';
-import { connection } from '../../misc/util.js';
+import type { Command } from '../../Structures/Types/Command.js';
 
 export default {
     name: "Test",
@@ -18,12 +17,10 @@ export default {
     },
     async execute(interaction: ChatInputCommandInteraction<'cached'>) {
 
-        connection.query("CREATE TABLE users (username VARCHAR(255), userId VARCHAR(255))", function (err, result) {
-            if (err) throw err;
-            console.log("Table created " + result);
-        });
+        const Guilds = interaction.client.guilds.cache.map(guild => guild.id && guild.name);
+        Guilds.forEach((element) => console.log(element));
         interaction.reply({
-            content: "The test worked!"
+            content: "The test worked! Logged all guild IDs."
         })
     }
 } satisfies Command;

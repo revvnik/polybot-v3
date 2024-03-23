@@ -141,6 +141,16 @@ export function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
+export function createSQLConnection() {
+    mysql.createConnection({
+        host: "sql11.freemysqlhosting.net",
+        user: "sql11685896",
+        password: "WJrSHCPApC",
+        database: "sql11685896",
+        port: 3306
+    })
+}
+
 export const connection = mysql.createConnection({
     host: "sql11.freemysqlhosting.net",
     user: "sql11685896",
@@ -149,25 +159,38 @@ export const connection = mysql.createConnection({
     port: 3306
 })
 
+/*
 import express from "express";
 export function startServer() {
     const app = express();
+    app.use(express.text());
     const port = 7096;
 
     app.get('/', (_req, res) => {
         res.send('Hello World!')
     })
-    
     app.post('/', (_req, res) => {
         res.send('Got a POST request')
         console.log("Got a POST request")
+    })
+
+    app.get('/version', (_req, res) => {
+        res.send("Current version is v3.0.0")
+    })
+    app.post('/version', (req, res) => {
+        console.log('Got body:', req.body);
+        res.send("Current version is v3.0.0")
+    });
+
+    app.get('/search', (req, res) => {
+        res.send('You searched for: ' + req.query.keyword)
     })
 
     app.listen(port, "0.0.0.0", () => {
         console.log(`Example app listening on port ${port}`)
     })
 }
-
+*/
 /* 
 export async function hasPermission(guild, user, permission) {
     // Check if user is guild owner
