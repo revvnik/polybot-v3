@@ -1,12 +1,12 @@
 import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
 import mongoose from "mongoose";
-import {loadStructures} from '../Miscellaneous/util.js';
 import moment from "moment";
-import type { Command } from './Command.js';
+import type { Command } from '../structures/Command.js';
 import { config } from '../config.js';
-import { Restart } from '../Schemas/Restart.js';
+import { Restart } from '../schemas/Restart.js';
 import { fileURLToPath } from 'node:url';
-import { Event } from './Event.js';
+import { Event } from '../structures/Event.js';
+import { loadStructures } from '../miscellaneous/util.js';
 
 export class ExtendedClient extends Client {
     constructor() {

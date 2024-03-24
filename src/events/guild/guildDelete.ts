@@ -1,6 +1,6 @@
 import { Events } from 'discord.js';
 
-import type { Event } from '../../Structures/Event.js';
+import type { Event } from '../../structures/Event.js';
 
 export default {
     name: Events.GuildDelete,

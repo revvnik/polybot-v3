@@ -1,8 +1,8 @@
 import { Events } from 'discord.js';
-import GuildSettings from "../../Schemas/Guild.js";
+import GuildSettings from "../../schemas/Guild.js";
 // import { CustomPermissions } from "../../models/CustomPermissions.js";
 
-import type { Event } from '../../Structures/Event.js';
+import type { Event } from '../../structures/Event.js';
 
 export default {
     name: Events.GuildCreate, // As placeholder

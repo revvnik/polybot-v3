@@ -1,6 +1,6 @@
 import { type ChatInputCommandInteraction, ApplicationCommandType, EmbedBuilder, ApplicationCommandOptionType } from 'discord.js';
-import type { Command } from '../../Structures/Command.js';
-import {connection} from '../../Miscellaneous/util.js';
+import type { Command } from '../../structures/Command.js';
+import {connection} from '../../miscellaneous/util.js';
 
 export default {
     name: "Sql",

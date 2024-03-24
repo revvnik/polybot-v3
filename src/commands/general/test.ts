@@ -1,6 +1,6 @@
 import { type ChatInputCommandInteraction } from 'discord.js';
 
-import type { Command } from '../../Structures/Command.js';
+import type { Command } from '../../structures/Command.js';
 
 export default {
     name: "Test",

@@ -1,6 +1,6 @@
 import { type ChatInputCommandInteraction, inlineCode, RESTJSONErrorCodes, time, TimestampStyles, ApplicationCommandType } from 'discord.js';
-import { Emoji } from '../../Structures/Enums.js';
-import type { Command } from '../../Structures/Command.js';
+import { Emoji } from '../../structures/Enums.js';
+import type { Command } from '../../structures/Command.js';
 
 import wait from 'node:timers/promises';
 

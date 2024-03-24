@@ -15,7 +15,7 @@
     "deploy": "npm run build && node --require dotenv/config dist/deploy-commands.js",
     "sync": "npm run build && npx tsx src/deploy-dist-src.ts"
   },
-  "author": "polygon",
+  "author": "revvnik",
   "license": "ISC",
   "dependencies": {
     "@types/ssh2-sftp-client": "^9.0.3",
