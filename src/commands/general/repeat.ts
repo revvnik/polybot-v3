@@ -4,7 +4,7 @@ import type { Command } from '../../Structures/Types/Command.js';
 export default {
     name: "Repeat",
     description: "Repeats a message as the bot.",
-    customPermissions: ["POLYBOT.MANAGE_SERVER"],
+    customPermissions: ["REVVER.MANAGE_SERVER"],
     data: {
         name: 'repeat',
         description: 'Repeat a message!',

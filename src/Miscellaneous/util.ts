@@ -213,8 +213,8 @@ export async function hasPermission(guild, user, permission) {
         return false;
     }
 
-    if (user.id === BotOwner.userId && BotOwner.permission === 'POLYBOT.ALL') {
-        return true; // Bot owner always has the POLYBOT.OWNER permission
+    if (user.id === BotOwner.userId && BotOwner.permission === 'REVVER.ALL') {
+        return true; // Bot owner always has the REVVER.OWNER permission
     }
 
     if(user.id === guild.ownerId)

@@ -29,12 +29,12 @@ if (missingVariables.length > 0) {
 
 export const BotOwner = {
     userId: '774217476073848862',
-    permission: 'POLYBOT.ALL'
+    permission: 'REVVER.ALL'
 }
 
 export const GuildOwner = {
     userId: String,
-    permission: 'POLYBOT.SERVER_OWNER'
+    permission: 'REVVER.SERVER_OWNER'
 }
 
 export const db_config = {

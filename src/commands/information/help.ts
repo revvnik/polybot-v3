@@ -35,7 +35,7 @@ export default {
         const selectedOption = interaction.options.getString("page");
         
         const helpEmbed = new EmbedBuilder()
-            .setDescription(`PolyBot Help | ${capitalizeFirstLetter(selectedOption)} \n`)
+            .setDescription(`Revver Help | ${capitalizeFirstLetter(selectedOption)} \n`)
             .setColor("Random");
 
         // let str = "";

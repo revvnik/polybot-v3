@@ -1,7 +1,7 @@
 {
-  "name": "polybot-v3",
+  "name": "revver-v3",
   "version": "0.0.1",
-  "description": "Third and currently last version of PolyBot.",
+  "description": "Third and currently last version of Revver.",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {

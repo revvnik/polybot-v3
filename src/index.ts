@@ -1,5 +1,5 @@
 import { ActivityType } from 'discord.js';
-import { ExtendedClient } from './Structures/Classes/PolyBot.js';
+import { ExtendedClient } from './Structures/Classes/Revver.js';
 import { Server } from "./Structures/Classes/Server.js";
 
 export const client = new ExtendedClient();
