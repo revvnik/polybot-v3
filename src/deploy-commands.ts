@@ -10,7 +10,7 @@ import { fileURLToPath, URL } from 'node:url';
 
 import { loadStructures } from './Miscellaneous/util.js';
 import "colorts/lib/string.js";
-import type { Command } from './Structures/Types/Command.js';
+import type { Command } from './Structures/Command.js';
 
 const commands: RESTPostAPIApplicationCommandsJSONBody[] | RESTPostAPIApplicationGuildCommandsJSONBody[] = [];
 

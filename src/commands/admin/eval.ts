@@ -1,5 +1,5 @@
 import { type ChatInputCommandInteraction, ApplicationCommandType, EmbedBuilder, ApplicationCommandOptionType } from 'discord.js';
-import type { Command } from '../../Structures/Types/Command.js';
+import type { Command } from '../../Structures/Command.js';
 
 export default {
     name: "Eval",

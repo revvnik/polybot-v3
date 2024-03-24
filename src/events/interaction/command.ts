@@ -2,7 +2,7 @@ import { Events, inlineCode, Collection, bold } from 'discord.js';
 
 import { missingPerms } from '../../Miscellaneous/util.js';
 
-import type { Event } from '../../Structures/Types/Event.js';
+import type { Event } from '../../Structures/Event.js';
 import { BotOwner } from '../../config.js';
 
 export default {

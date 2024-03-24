@@ -1,5 +1,5 @@
 import type { AutocompleteInteraction, CommandInteraction, RESTPostAPIApplicationCommandsJSONBody, RESTPostAPIApplicationGuildCommandsJSONBody } from 'discord.js';
-import { ICustomOptionsDocument as CustomOptions } from '../Interfaces.js';
+import { ICustomOptionsDocument as CustomOptions } from './Interfaces.js';
 /**
  * Defines the structure of a command.
  */

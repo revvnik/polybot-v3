@@ -1,6 +1,6 @@
 import { ActivityType } from 'discord.js';
-import { ExtendedClient } from './Structures/Classes/Revver.js';
-import { Server } from "./Structures/Classes/Server.js";
+import { ExtendedClient } from './Structures/Revver.js';
+import { Server } from "./Structures/Server.js";
 
 export const client = new ExtendedClient();
 await client.start();
