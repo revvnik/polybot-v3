@@ -8,7 +8,6 @@ export type Command = {
     description: CustomOptions["description"];
     owner?: CustomOptions["owner"];
     serverOwner?: CustomOptions["serverOwner"];
-    customPermissions?: CustomOptions["customPermissions"];
     /**
      * The data for the command
      */
@@ -24,4 +23,4 @@ export type Command = {
      */
     execute?(interaction: CommandInteraction): Promise<void> | void;
     autocomplete?(interaction: AutocompleteInteraction): Promise<void> | void;
-};
+}; 

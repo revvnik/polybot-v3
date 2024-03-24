@@ -11,7 +11,7 @@
     "prebuild": "npm run clean",
     "build": "tsc --pretty",
     "watch": "tsc -w",
-    "start": "npm run build && node --no-warnings --require dotenv/config dist/deploy-commands.js && npm run start:dev",
+    "start": "npm run build && npm run start:dev",
     "deploy": "npm run build && node --require dotenv/config dist/deploy-commands.js",
     "sync": "npm run build && npx tsx src/deploy-dist-src.ts"
   },

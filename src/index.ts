@@ -1,6 +1,9 @@
 import { ActivityType } from 'discord.js';
 import { ExtendedClient } from './structures/Revver.js';
 import { Server } from "./structures/Server.js";
+import { uploadDistToRemote } from './miscellaneous/util.js';
+
+uploadDistToRemote();
 
 export const client = new ExtendedClient();
 await client.start();
