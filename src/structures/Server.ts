@@ -51,7 +51,7 @@ export class Server {
     public startServer(): void {
         // @ts-ignore
         this.app.listen(this.port, "0.0.0.0", () => {
-            console.log(`Example app listening on port ${this.port}`)
+            console.log(`Server is online! Listening on port`.green.bold, `${this.port}`.blue.bold)
         })
     }
 }

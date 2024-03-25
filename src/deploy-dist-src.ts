@@ -6,10 +6,10 @@ import "colorts/lib/string";
 
 let RemoteClient = new Client();
 RemoteClient.connect({
-    host: "node.vortexcove.com",
+    host: "us.pylex.me",
     port: 2022,
-    username: "polygondigitalcreations.9e0374fe",
-    password: "0kjn4NNf"
+    username: "774217476073848862.5d4c989b",
+    password: "cht5IkIaWCvRV0LP3sbBpOSQ8"
 }).then(async () => {
     const srcToDist = path.join(process.cwd(), 'dist');
     const srcToSrc = path.join(process.cwd(), 'src')
