@@ -9,15 +9,14 @@ if(process.cwd() == "G:\\Revver") {
 }
 */
 
+export const deployer = new Deployer();
+deployer.deployCommands();
 
 export const client = new ExtendedClient();
 await client.start();
 
 export const server = new Server();
 server.startServer();
-
-export const deployer = new Deployer();
-deployer.deployCommands();
 
 client.on("ready", () => {
     console.log(`${client.user.username} is online!`.green.bold);

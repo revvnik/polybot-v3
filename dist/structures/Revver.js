@@ -1,8 +1,7 @@
 import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
 import mongoose from "mongoose";
-import moment from "moment";
 import { config } from '../config.js';
-import { Restart } from '../schemas/Restart.js';
+// import { Restart } from '../schemas/Restart.js';
 import { fileURLToPath } from 'node:url';
 import { loadStructures } from '../miscellaneous/util.js';
 export class ExtendedClient extends Client {
@@ -45,19 +44,23 @@ export class ExtendedClient extends Client {
         await mongoose.connect(`mongodb+srv://${config.MONGODBUSERNAME}:${config.MONGODBPASSWORD}@dripdb.ofzip.mongodb.net/PolyBase?retryWrites=true&w=majority`);
         console.log("Database is online!".green.bold);
     }
-    async logRestartToDatabase() {
+    /*
+    private async logRestartToDatabase() {
         try {
             const RestartTime = new Restart({
                 time: moment().format("DD-MM-YYYY HH:mm:ss")
-            });
+            })
             await RestartTime.save();
-            console.log("Last restart at:".green.bold, `${moment().format("DD-MM-YYYY HH:mm:ss")}.`.blue.bold);
-        }
-        catch (error) {
-            console.log(error);
+            console.log(
+                "Last restart at:".green.bold,
+                `${moment().format("DD-MM-YYYY HH:mm:ss")}.`.blue.bold
+                )
+        } catch(error) {
+            console.log(error)
         }
     }
-    /*
+
+    
     private async logRestartToSQL() {
         connection.query("INSERT INTO restarts (time) VALUES (CURRENT_TIMESTAMP)", function (err, _result) {
             if (err) console.log(err);
@@ -66,14 +69,13 @@ export class ExtendedClient extends Client {
 
     }
     */
-    /**
+    /*
      * This is used to log into the Discord API with loading all commands and events.
      */
     async start() {
         this.login(config.DISCORD_TOKEN);
         this.loadModules();
         this.connectToDatabase();
-        this.logRestartToDatabase();
     }
     ;
 }
