@@ -12,7 +12,7 @@ export class Deployer {
     public async deployCommands() {
         const commands = [];
 
-        const commandFolderPath = fileURLToPath(new URL('commands', import.meta.url));
+        const commandFolderPath = fileURLToPath(new URL('../commands', import.meta.url));
         const commandFiles = await loadStructures(commandFolderPath, ['data', 'execute']);
 
         for (const command of commandFiles) {
