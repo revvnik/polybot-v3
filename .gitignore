@@ -5,7 +5,6 @@ replit.nix
 .git
 .config
 .env
-dist
 CommandTypes.txt
 .npmrc
 .idea
