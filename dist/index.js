@@ -1,4 +1,4 @@
-import { ActivityType } from 'discord.js';
+//import { ActivityType } from 'discord.js';
 import { ExtendedClient } from './structures/Revver.js';
 import { Server } from "./structures/Server.js";
 import { Deployer } from './structures/Deployer.js';
@@ -8,12 +8,18 @@ if(process.cwd() == "G:\\Revver") {
     await uploadDistToRemote();
 }
 */
-export const client = new ExtendedClient();
-await client.start();
-export const server = new Server();
-server.startServer();
 export const deployer = new Deployer();
-deployer.deployCommands();
+export const client = new ExtendedClient();
+export const server = new Server();
+deployer.deployCommands()
+    .then(async () => {
+    await client.start();
+    await server.startServer();
+})
+    .catch(error => {
+    console.log(error);
+});
+/*
 client.on("ready", () => {
     console.log(`${client.user.username} is online!`.green.bold);
     client.user.setActivity({
@@ -21,3 +27,4 @@ client.on("ready", () => {
         type: ActivityType.Watching
     });
 });
+ */ 

@@ -14,15 +14,15 @@ RemoteClient.connect({
     const srcToDist = path.join(process.cwd(), 'dist');
     const srcToSrc = path.join(process.cwd(), 'src')
 
-    await removeSrcOnRemote("/src");
-    await removeDistOnRemote("/dist");
+    //await removeSrcOnRemote("/src");
+    //await removeDistOnRemote("/dist");
 
-    await RemoteClient.uploadDir(srcToSrc, "/src").then(async () => {
+    /*await RemoteClient.uploadDir(srcToSrc, "/src").then(async () => {
         console.log(
             "Uploaded".green.bold,
             "/src/".blue.bold,
             "to remote server!".green.bold
-        );
+        ); */
 
         await RemoteClient.uploadDir(srcToDist, "/dist").then(() => {
             console.log(
@@ -33,7 +33,7 @@ RemoteClient.connect({
             process.exit();
         });
     });
-});
+//});
 
 
 async function removeSrcOnRemote(path: string) {

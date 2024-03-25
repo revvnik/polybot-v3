@@ -6,7 +6,7 @@ export class Server {
     constructor() {
         this.app = express();
         this.app.use(express.text());
-        this.port = 7096;
+        this.port = 8866;
         this.initializeRoutes();
     }
     initializeRoutes() {
