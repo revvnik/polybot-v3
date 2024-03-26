@@ -30,6 +30,7 @@
     "mongoose": "^8.0.3",
     "mysql": "^2.18.1",
     "npm-check-updates": "^16.14.12",
+    "python-shell": "^5.0.0",
     "quick-local-ip": "^1.0.7",
     "ssh2-sftp-client": "^9.1.0",
     "tsup": "^8.0.1",

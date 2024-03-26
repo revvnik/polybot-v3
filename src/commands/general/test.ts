@@ -16,11 +16,8 @@ export default {
         cooldown: 5
     },
     async execute(interaction: ChatInputCommandInteraction<'cached'>) {
-
-        const Guilds = interaction.client.guilds.cache.map(guild => guild.id && guild.name);
-        Guilds.forEach((element) => console.log(element));
         interaction.reply({
-            content: "The test worked! Logged all guild IDs."
+            content: "The test worked!"
         })
     }
 } satisfies Command;

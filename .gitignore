@@ -11,3 +11,4 @@ CommandTypes.txt
 src/deploy-dist.ts
 src/delete-commands.temp.ts
 /node_modules.zip
+.venv

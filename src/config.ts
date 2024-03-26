@@ -17,7 +17,9 @@ export const config = {
     OWNER: process.env.OWNER,
     COOLDOWN: process.env.COOLDOWN,
     ADMIN_USERNAME: process.env.ADMIN_USERNAME,
-    ADMIN_PASSWORD: process.env.ADMIN_PASSWORD
+    ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+    REVVER_VERSION: process.env.REVVER_VERSION,
+    DATABASE_URL: process.env.DATABASE_URL
 };
 
 const missingVariables = Object.keys(config).filter(key => !config[key]);
