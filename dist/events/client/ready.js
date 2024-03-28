@@ -1,4 +1,6 @@
 import { ActivityType, Events } from 'discord.js';
+import { GuildUpdater } from '../../structures/updater/Guilds.js';
+export const guildUpdater = new GuildUpdater();
 export default {
     name: Events.ClientReady,
     async execute(client) {
@@ -7,5 +9,6 @@ export default {
             name: 'HEAVY DEVELOPMENT ONGOING',
             type: ActivityType.Watching
         });
+        await guildUpdater.updateGuilds();
     }
 };

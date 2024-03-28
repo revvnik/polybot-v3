@@ -1,5 +1,5 @@
 import { inlineCode, RESTJSONErrorCodes, time, TimestampStyles, ApplicationCommandType } from 'discord.js';
-import { Emoji } from '../../structures/Enums.js';
+import { Emoji } from '../../structures/types/Enums.js';
 import wait from 'node:timers/promises';
 export default {
     name: "Ping",

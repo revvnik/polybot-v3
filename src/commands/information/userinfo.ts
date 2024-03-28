@@ -1,5 +1,5 @@
 import { type ChatInputCommandInteraction, ApplicationCommandType, ApplicationCommandOptionType, EmbedBuilder } from 'discord.js';
-import type { Command } from '../../structures/Command.js';
+import type { Command } from '../../structures/types/Command.js';
 import moment from "moment";
 
 export default {

@@ -2,7 +2,7 @@ import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, t
 
 import { formatMessageToEmbed } from '../../miscellaneous/util.js';
 
-import type { Command } from '../../structures/Command.js';
+import type { Command } from '../../structures/types/Command.js';
 
 export default {
     name: "Echo",

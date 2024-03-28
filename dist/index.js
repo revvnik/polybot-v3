@@ -1,7 +1,7 @@
 //import { ActivityType } from 'discord.js';
-import { ExtendedClient } from './structures/Revver.js';
-import { Server } from "./structures/Server.js";
-import { Deployer } from './structures/Deployer.js';
+import { ExtendedClient } from './structures/application/Revver.js';
+import { Server } from "./structures/application/Server.js";
+import { Deployer } from './structures/application/Deployer.js';
 // import { uploadDistToRemote } from './miscellaneous/util.js';
 /*
 if(process.cwd() == "G:\\Revver") {

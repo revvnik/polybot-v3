@@ -1,33 +1,19 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Document } from "mongoose";
 
-const GuildSchema = new Schema({
-    GuildID: {
-        type: String
-    },
-    LogChannelID: {
-        type: String,
-        required: false
-    },
-    NewsChannelID: {
-        type: String,
-        required: false
-    }, 
-    MemberCount: {
-        type: Number
-    },
-    LogsEnabled: {
-        type: Boolean,
-        required: true
-    },
-    NewsEnabled: {
-        type: Boolean,
-        required: false
-    },
-    customPermissions: {
-        type: Object,
-        required: false,
-        default: {},
-    },
+const GuildSchema: Schema = new Schema({
+    guildID: { type: String, required: true, unique: true },
+    guildName: { type: String, required: true },
+    memberCount: { type: Number, required: true },
+    ownerID: { type: String, required: true },
+    ownerUsername: { type: String, required: true }
 });
 
-export default model("GuildSettings", GuildSchema)
+export interface IGuild extends Document {
+    guildID: string;
+    guildName: string;
+    memberCount: number;
+    ownerID: string;
+    ownerUsername: string;
+}
+
+export const Guild = model<IGuild>('Guild', GuildSchema);

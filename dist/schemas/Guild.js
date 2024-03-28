@@ -1,31 +1,9 @@
 import { Schema, model } from "mongoose";
 const GuildSchema = new Schema({
-    GuildID: {
-        type: String
-    },
-    LogChannelID: {
-        type: String,
-        required: false
-    },
-    NewsChannelID: {
-        type: String,
-        required: false
-    },
-    MemberCount: {
-        type: Number
-    },
-    LogsEnabled: {
-        type: Boolean,
-        required: true
-    },
-    NewsEnabled: {
-        type: Boolean,
-        required: false
-    },
-    customPermissions: {
-        type: Object,
-        required: false,
-        default: {},
-    },
+    guildID: { type: String, required: true, unique: true },
+    guildName: { type: String, required: true },
+    memberCount: { type: Number, required: true },
+    ownerID: { type: String, required: true },
+    ownerUsername: { type: String, required: true }
 });
-export default model("GuildSettings", GuildSchema);
+export const Guild = model('Guild', GuildSchema);

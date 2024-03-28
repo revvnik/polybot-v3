@@ -1,13 +1,9 @@
 import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
 import mongoose from "mongoose";
-// import moment from "moment";
-import type { Command } from '../structures/Command.js';
-import { config } from '../config.js';
+import { config } from '../../config.js';
 // import { Restart } from '../schemas/Restart.js';
 import { fileURLToPath } from 'node:url';
-import { Event } from '../structures/Event.js';
-import { loadStructures } from '../miscellaneous/util.js';
-
+import { loadStructures } from '../../miscellaneous/util.js';
 export class ExtendedClient extends Client {
     constructor() {
         super({
@@ -15,7 +11,7 @@ export class ExtendedClient extends Client {
                 GatewayIntentBits.Guilds,
             ],
             partials: [
-                Partials.GuildMember, 
+                Partials.GuildMember,
                 Partials.Channel
             ],
             failIfNotExists: false,
@@ -24,32 +20,28 @@ export class ExtendedClient extends Client {
                 timeout: 15_000
             },
         });
-        this.commands = new Collection<string, Command>();
-        this.cooldown = new Collection<string, Collection<string, number>>();
-    };
-
+        this.commands = new Collection();
+        this.cooldown = new Collection();
+    }
+    ;
     /**
      * Loads all commands and events from their respective folders.
      */
     async loadModules() {
-        const commandFolderPath = fileURLToPath(new URL('../commands', import.meta.url));
-        const commandFiles: Command[] = await loadStructures(commandFolderPath, ['data', 'execute']);
-
+        const commandFolderPath = fileURLToPath(new URL('../../commands', import.meta.url));
+        const commandFiles = await loadStructures(commandFolderPath, ['data', 'execute']);
         for (const command of commandFiles) {
             this.commands.set(command.data.name, command);
         }
-
-        const eventFolderPath = fileURLToPath(new URL('../events', import.meta.url));
-        const eventFiles: Event[] = await loadStructures(eventFolderPath, ['name', 'execute']);
-
+        const eventFolderPath = fileURLToPath(new URL('../../events', import.meta.url));
+        const eventFiles = await loadStructures(eventFolderPath, ['name', 'execute']);
         for (const event of eventFiles) {
             this[event.once ? 'once' : 'on'](event.name, async (...args) => event.execute(...args));
         }
     }
-
-    private async connectToDatabase() {
+    async connectToDatabase() {
         mongoose.set("strictQuery", true);
-        await mongoose.connect(`mongodb+srv://${config.MONGODBUSERNAME}:${config.MONGODBPASSWORD}@dripdb.ofzip.mongodb.net/PolyBase?retryWrites=true&w=majority`)
+        await mongoose.connect(`mongodb+srv://${config.MONGODBUSERNAME}:${config.MONGODBPASSWORD}@dripdb.ofzip.mongodb.net/PolyBase?retryWrites=true&w=majority`);
         console.log("Database is online!".green.bold);
     }
     /*
@@ -84,6 +76,6 @@ export class ExtendedClient extends Client {
         this.login(config.DISCORD_TOKEN);
         this.loadModules();
         this.connectToDatabase();
-    };
+    }
+    ;
 }
-

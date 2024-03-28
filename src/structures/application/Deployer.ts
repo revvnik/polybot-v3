@@ -5,7 +5,7 @@ import {
     type RESTPutAPIApplicationGuildCommandsJSONBody,
 } from 'discord.js';
 import { fileURLToPath, URL } from 'node:url';
-import { loadStructures } from '../miscellaneous/util.js';
+import { loadStructures } from '../../miscellaneous/util.js';
 import "colorts/lib/string.js";
 
 export class Deployer {
@@ -13,7 +13,7 @@ export class Deployer {
         return new Promise(async (resolve, reject) => {
             const commands = [];
 
-            const commandFolderPath = fileURLToPath(new URL('../commands', import.meta.url));
+            const commandFolderPath = fileURLToPath(new URL('../../commands', import.meta.url));
             const commandFiles = await loadStructures(commandFolderPath, ['data', 'execute']);
 
             for (const command of commandFiles) {

@@ -1,5 +1,5 @@
 import { Events } from 'discord.js';
-import type { Event } from '../../structures/Event.js';
+import type { Event } from '../../structures/types/Event.js';
 
 export default {
     name: Events.InteractionCreate, // As placeholder
