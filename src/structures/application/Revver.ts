@@ -13,6 +13,7 @@ export class ExtendedClient extends Client {
         super({
             intents: [
                 GatewayIntentBits.Guilds,
+                GatewayIntentBits.GuildMembers
             ],
             partials: [
                 Partials.GuildMember, 

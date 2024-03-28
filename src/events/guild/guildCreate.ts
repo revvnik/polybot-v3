@@ -1,4 +1,4 @@
-import { Events } from 'discord.js';
+import { Events, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, } from 'discord.js';
 // import { CustomPermissions } from "../../models/CustomPermissions.js";
 
 import type { Event } from '../../structures/types/Event.js';
@@ -11,16 +11,14 @@ export default {
             guild.name.blue.bold
         );
 
-        /* 
-        const members = await guild.members.fetch();
+        (await guild.fetchOwner()).user.send("Thanks so much for inviting me! Stay tuned, you will get a message regarding ongoing changes soon, this message will be sent to every server owner.");
 
-        for(const id of members.keys()) {
-            await CustomPermissions.create({
-                GuildID: guild.id,
-                UserID: id,
-                UserPermissions: []
-            });
-        }
-        */ 
+        
     }
 } satisfies Event<Events.GuildCreate>;
+
+const discordLink = new ButtonBuilder()
+    .setCustomId("welcomeDiscordLink")
+    .setLabel("Discord")
+    .setStyle(ButtonStyle.Link)
+    .setURL("")

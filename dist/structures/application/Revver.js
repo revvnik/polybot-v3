@@ -1,4 +1,4 @@
-import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
+import { Client, Collection, GatewayIntentBits, Options, Partials } from 'discord.js';
 import mongoose from "mongoose";
 import { config } from '../../config.js';
 // import { Restart } from '../schemas/Restart.js';
@@ -9,6 +9,7 @@ export class ExtendedClient extends Client {
         super({
             intents: [
                 GatewayIntentBits.Guilds,
+                GatewayIntentBits.GuildMembers
             ],
             partials: [
                 Partials.GuildMember,
@@ -19,6 +20,17 @@ export class ExtendedClient extends Client {
                 retries: 3,
                 timeout: 15_000
             },
+            sweepers: {
+                ...Options.DefaultSweeperSettings,
+                messages: {
+                    lifetime: 43_200,
+                    interval: 86_400
+                },
+                users: {
+                    interval: 86_400,
+                    filter: () => user => user.bot && user.id !== user.client.user.id,
+                }
+            }
         });
         this.commands = new Collection();
         this.cooldown = new Collection();
