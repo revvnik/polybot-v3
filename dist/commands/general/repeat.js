@@ -1,41 +1,40 @@
-import { ApplicationCommandType, ChannelType, ApplicationCommandOptionType } from 'discord.js';
-export default {
-    name: "Repeat",
-    description: "Repeats a message as the bot.",
-    data: {
-        name: 'repeat',
-        description: 'Repeat a message!',
-        type: ApplicationCommandType.ChatInput, // Normal slash command by default
-        options: [
-            {
-                name: "message",
-                description: "The message to repeat",
-                type: ApplicationCommandOptionType.String,
-                required: true // String type by default
-            },
-            {
-                name: "channel",
-                description: "The channel to send the message in",
-                type: ApplicationCommandOptionType.Channel,
-                channel_types: [ChannelType.GuildText]
-            }
-        ]
+import { SlashCommandBuilder, ChannelType } from 'discord.js';
+const repeatCommand = {
+    build() {
+        return new SlashCommandBuilder()
+            .setName('repeat')
+            .setDescription('Repeats a message as the bot.')
+            .addStringOption(option => option.setName('message')
+            .setDescription('The message to repeat')
+            .setRequired(true))
+            .addChannelOption(option => option.setName('channel')
+            .setDescription('The channel to send the message in')
+            .addChannelTypes(ChannelType.GuildText)) // Ensure only text channels can be selected
+            .toJSON();
     },
     opt: {
         userPermissions: ['SendMessages'],
         botPermissions: ['SendMessages'],
         category: 'General',
-        cooldown: 5
+        cooldown: 5,
     },
     async execute(interaction) {
-        const toRepeat = interaction.options.getString("message");
-        const channelToSend = interaction.options.getChannel("channel") || interaction.channel;
+        const toRepeat = interaction.options.getString("message", true); // The "true" here asserts that this is required
+        const channelToSend = interaction.options.getChannel("channel", false) || interaction.channel;
         channelToSend.send({
             content: toRepeat
-        });
-        interaction.reply({
-            content: "Message sent!",
-            ephemeral: true
+        }).then(() => {
+            interaction.reply({
+                content: "Message sent!",
+                ephemeral: true
+            });
+        }).catch(error => {
+            console.error("Error sending message to channel:", error);
+            interaction.reply({
+                content: "Failed to send the message.",
+                ephemeral: true
+            });
         });
     }
 };
+export default repeatCommand;

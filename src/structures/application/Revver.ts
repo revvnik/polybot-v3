@@ -36,6 +36,7 @@ export class ExtendedClient extends Client {
                 }
             }
         });
+        
         this.commands = new Collection<string, Command>();
         this.cooldown = new Collection<string, Collection<string, number>>();
     };
@@ -45,10 +46,10 @@ export class ExtendedClient extends Client {
      */
     async loadModules() {
         const commandFolderPath = fileURLToPath(new URL('../../commands', import.meta.url));
-        const commandFiles: Command[] = await loadStructures(commandFolderPath, ['data', 'execute']);
+        const commandFiles: Command[] = await loadStructures(commandFolderPath, ['build', 'execute']);
 
         for (const command of commandFiles) {
-            this.commands.set(command.data.name, command);
+            this.commands.set(command.build().name, command);
         }
 
         const eventFolderPath = fileURLToPath(new URL('../../events', import.meta.url));

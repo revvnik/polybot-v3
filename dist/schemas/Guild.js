@@ -4,6 +4,30 @@ const GuildSchema = new Schema({
     guildName: { type: String, required: true },
     memberCount: { type: Number, required: true },
     ownerID: { type: String, required: true },
-    ownerUsername: { type: String, required: true }
+    ownerUsername: { type: String, required: true },
+    welcome: {
+        enabled: { type: Boolean, default: false },
+        channel: String,
+        content: String,
+        embed: {
+            description: String,
+            color: String,
+            thumbnail: Boolean,
+            footer: String,
+            image: String
+        }
+    },
+    goodbye: {
+        enabled: { type: Boolean, default: false },
+        channel: String,
+        content: String,
+        embed: {
+            description: String,
+            color: String,
+            thumbnail: Boolean,
+            footer: String,
+            image: String
+        }
+    }
 });
 export const Guild = model('Guild', GuildSchema);

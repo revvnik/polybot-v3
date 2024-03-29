@@ -24,22 +24,31 @@ export async function dynamicImport(path) {
  * @param {PathLike} path - The directory path to load the structures from
  * @param {[string, string]} props - The properties to check if the structure is valid
  */
-export async function loadStructures(path, props) {
-    const fileData = [];
-    const folders = readdirSync(path);
-    for (const folder of folders) {
-        const filesPath = join(path.toString(), folder);
-        const files = readdirSync(filesPath).filter(file => file.endsWith('.js'));
+export async function loadStructures(directoryPath, requiredProps) {
+    const loadedModules = [];
+    const directories = readdirSync(directoryPath);
+    for (const directory of directories) {
+        const filesPath = join(directoryPath.toString(), directory);
+        const files = readdirSync(filesPath).filter(file => file.endsWith('.js') || file.endsWith('.ts'));
         for (const file of files) {
             const filePath = join(filesPath, file);
-            const data = await dynamicImport(filePath);
-            if (props[0] in data && props[1] in data)
-                fileData.push(data);
-            else
-                console.warn(`\u001b[33m The command at ${filePath} is missing a required ${props[0]} or ${props[1]} property.`);
+            try {
+                const module = await dynamicImport(filePath);
+                // Check if all required properties exist in the module
+                const isValidModule = requiredProps.every(prop => prop in module);
+                if (isValidModule) {
+                    loadedModules.push(module);
+                }
+                else {
+                    console.warn(`The module at ${filePath} is missing one or more of the required properties: ${requiredProps.join(', ')}.`);
+                }
+            }
+            catch (error) {
+                console.error(`Failed to import module from ${filePath}:`, error);
+            }
         }
     }
-    return fileData;
+    return loadedModules;
 }
 /**
  * Shows the missing permissions.

@@ -1,48 +1,19 @@
-import type { AutocompleteInteraction, CommandInteraction, RESTPostAPIApplicationCommandsJSONBody, RESTPostAPIApplicationGuildCommandsJSONBody, PermissionResolvable } from 'discord.js';
-/**
- * Defines the structure of a command.
- */
+import { AutocompleteInteraction, CommandInteraction, PermissionResolvable } from 'discord.js';
+
 export type Command = {
-    name: CustomOptions["name"];
-    description: CustomOptions["description"];
-    owner?: CustomOptions["owner"];
-    serverOwner?: CustomOptions["serverOwner"];
-    /**
-     * The data for the command
-     */
-    data: RESTPostAPIApplicationCommandsJSONBody | RESTPostAPIApplicationGuildCommandsJSONBody;
-    /**
-     * The custom options for the command
-     */
-    opt?: CustomOptions;
-    /**
-     * The function to execute when the command is called
-     *
-     * @param interaction - The interaction of the command
-     */
-    execute?(interaction: CommandInteraction): Promise<void> | void;
+    build(): any; // Using SlashCommandBuilder as an example
+    execute(interaction: CommandInteraction): Promise<void> | void;
     autocomplete?(interaction: AutocompleteInteraction): Promise<void> | void;
+    
+    // Add back any additional properties you need
+    opt?: CustomOptions;
 };
 
 interface CustomOptions {
-    name?: string;
-    description?: string;
-    owner?: boolean,
-    serverOwner?: boolean,
-    /**
-     * The permissions the user needs to run the command
-     */
+    owner?: boolean;
+    serverOwner?: boolean;
     userPermissions?: PermissionResolvable[];
-    /**
-     * The permissions the bot needs to run the command
-     */
     botPermissions?: PermissionResolvable[];
-    /**
-     * The category the command belongs to
-     */
     category?: string;
-    /**
-     * The cooldown of the command in seconds
-     */
     cooldown?: number;
 }

@@ -1,53 +1,51 @@
-import { type ChatInputCommandInteraction, inlineCode, RESTJSONErrorCodes, time, TimestampStyles, ApplicationCommandType } from 'discord.js';
+import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { Emoji } from '../../structures/types/Enums.js';
 import type { Command } from '../../structures/types/Command.js';
-
 import wait from 'node:timers/promises';
 
-export default {
-    name: "Ping",
-    description: "Shows the response time of the bot.",
-    data: {
-        name: 'pingpong',
-        description: 'Pong!',
-        type: ApplicationCommandType.ChatInput
+const pingCommand: Command = {
+    build() {
+        return new SlashCommandBuilder()
+            .setName('ping')
+            .setDescription('Shows the response time of the bot.')
+            .toJSON(); // Convert the command data to JSON
     },
     opt: {
         userPermissions: ['SendMessages'],
         botPermissions: ['SendMessages'],
         category: 'General',
-        cooldown: 5
+        cooldown: 5,
     },
     async execute(interaction: ChatInputCommandInteraction<'cached'>) {
         const currentTime = 1000 * 75 - interaction.client.uptime;
         const botReadyTimestamp = Math.round((Date.now() + currentTime) / 1000);
 
-        // This is to prevent from using the command so the client has a chance to output a proper latency report
+        // Prevent command use during bot startup period
         if (interaction.client.uptime < 1000 * 75) {
             await interaction.reply({
-                content: `The bot is still starting up. Run this command again ${time(botReadyTimestamp, TimestampStyles.RelativeTime)} to see statistical information.`,
-                ephemeral: true
+                content: `The bot is still starting up. Run this command again in ${botReadyTimestamp}ms to see statistical information.`,
+                ephemeral: true,
             });
             return;
-        };
+        }
 
         const msg = await interaction.reply({
             content: `${Emoji.StatusIdle} Pinging...`,
-            fetchReply: true
+            fetchReply: true,
         });
 
         try {
-            await wait.setTimeout(3000);
+            await wait.setTimeout(3000); // Artificial delay to simulate processing time
 
             const ping = msg.createdTimestamp - interaction.createdTimestamp;
 
             await interaction.editReply({
-                content: `${Emoji.StatusOnline} Roundtrip Latency is ${inlineCode(`${ping}ms`)}. \nWebsocket Heartbeat is ${inlineCode(`${interaction.client.ws.ping}ms`)}`
-            })
+                content: `${Emoji.StatusOnline} Roundtrip Latency is ${ping}ms. Websocket Heartbeat is ${interaction.client.ws.ping}ms.`,
+            });
         } catch (error) {
-            if (error.code === RESTJSONErrorCodes.UnknownMessage) {
-                console.error(`Failed to edit interaction: ${error.message}`);
-            }
+            console.error(`Failed to edit interaction: ${error.message}`);
         }
-    }
-} satisfies Command;
+    },
+};
+
+export default pingCommand;

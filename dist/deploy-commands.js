@@ -4,10 +4,10 @@ import { loadStructures } from './miscellaneous/util.js';
 import "colorts/lib/string.js";
 const commands = [];
 const commandFolderPath = fileURLToPath(new URL('commands', import.meta.url));
-const commandFiles = await loadStructures(commandFolderPath, ['data', 'execute']);
+const commandFiles = await loadStructures(commandFolderPath, ['build', 'execute']);
 // Grab the output of each command for deployment
 for (const command of commandFiles) {
-    commands.push(command.data);
+    commands.push(command.build().toJSON());
 }
 // Construct and prepare an instance of the REST module
 const rest = new REST().setToken(process.env.DISCORD_TOKEN);

@@ -1,15 +1,14 @@
-import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, type MessageContextMenuCommandInteraction } from 'discord.js';
+import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, ContextMenuCommandBuilder, type MessageContextMenuCommandInteraction } from 'discord.js';
 
 import { formatMessageToEmbed } from '../../miscellaneous/util.js';
 
 import type { Command } from '../../structures/types/Command.js';
 
-export default {
-    name: "Echo",
-    description: "Right click a message and select 'echo' to repeat what the user said.",
-    data: {
-        name: 'echo',
-        type: ApplicationCommandType.Message,
+const echoCommand: Command = {
+    build() {
+        return new ContextMenuCommandBuilder()
+            .setName("echo")
+            .setType(ApplicationCommandType.Message)
     },
     opt: {
         userPermissions: ['SendMessages'],
@@ -35,4 +34,5 @@ export default {
             ]
         });
     }
-} satisfies Command;
+}
+export default echoCommand;

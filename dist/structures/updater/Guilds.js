@@ -49,13 +49,41 @@ export class GuildUpdater {
         const owner = await guild.fetchOwner();
         return {
             guildID: guild.id,
-            guildName: guild.name, // Add this line to include guildName
+            guildName: guild.name,
             memberCount: guild.memberCount,
             ownerID: owner.id,
             ownerUsername: owner.user?.username || "Unknown",
+            // Assuming default settings for welcome and goodbye:
+            welcome: {
+                enabled: false, // Defaulted to false as defined in your schema
+                // channel, content, and embed can be set based on your requirements or left undefined
+            },
+            goodbye: {
+                enabled: false, // Defaulted to false as defined in your schema
+                // channel, content, and embed can be set based on your requirements or left undefined
+            },
         };
     }
     async updateGuildInfo(guildID) {
         return this.createGuildData(guildID); // Utilizes createGuildData directly
+    }
+    async insertNewGuild(guildId) {
+        const existingGuild = await Guild.findOne({ guildID: guildId }).exec();
+        if (!existingGuild) {
+            const newGuildData = await this.createGuildData(guildId);
+            if (newGuildData) {
+                const newGuild = new Guild(newGuildData);
+                await newGuild.save().catch((err) => {
+                    console.error(`Failed to insert new guild: ${guildId}`.red.bold, err);
+                });
+                console.log(`New guild inserted: ${guildId}`.green.bold);
+            }
+            else {
+                console.error(`Guild data was null for guild: ${guildId}`.red.bold);
+            }
+        }
+        else {
+            console.log(`Guild already exists in database: ${guildId}`.yellow.bold);
+        }
     }
 }

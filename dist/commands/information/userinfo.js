@@ -1,25 +1,19 @@
-import { ApplicationCommandType, ApplicationCommandOptionType, EmbedBuilder } from 'discord.js';
+import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 import moment from "moment";
-export default {
-    name: "Userinfo",
-    description: "Shows information about a user.",
-    data: {
-        name: 'userinfo',
-        description: 'Shows information about a user.',
-        type: ApplicationCommandType.ChatInput,
-        options: [
-            {
-                name: "user",
-                description: "Select a user to show the information of.",
-                type: ApplicationCommandOptionType.User
-            }
-        ]
+const userinfoCommand = {
+    build() {
+        return new SlashCommandBuilder()
+            .setName('userinfo')
+            .setDescription('Shows information about a user.')
+            .addUserOption(option => option.setName('user')
+            .setDescription('Select a user to show the information of.'))
+            .toJSON();
     },
     opt: {
         userPermissions: ['SendMessages'],
         botPermissions: ['SendMessages'],
-        category: '',
-        cooldown: 5
+        category: 'Information',
+        cooldown: 5,
     },
     async execute(interaction) {
         const selectedMember = interaction.options.getMember("user") || interaction.member;
@@ -28,7 +22,7 @@ export default {
             .setAuthor({ name: `Userinfo of ${selectedUser.username}`, iconURL: selectedUser.displayAvatarURL() })
             .setTitle("Avatar URL")
             .setColor("Random")
-            .setURL(selectedUser.avatarURL())
+            .setURL(selectedUser.displayAvatarURL())
             .addFields({
             name: "ID",
             value: `${selectedUser.id}`,
@@ -43,3 +37,4 @@ export default {
         });
     }
 };
+export default userinfoCommand;

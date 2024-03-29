@@ -1,28 +1,23 @@
-import { type ChatInputCommandInteraction, ApplicationCommandType, EmbedBuilder, ApplicationCommandOptionType } from 'discord.js';
+import { type ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import type { Command } from '../../structures/types/Command.js';
 
-export default {
-    name: "Eval",
-    description: "Evaluate JavaScript code.",
-    owner: true,
-    data: {
-        name: 'eval',
-        description: 'Evaluate JavaScript code.',
-        type: ApplicationCommandType.ChatInput,
-        options: [
-            {
-                name: "code",
-                description: "The code to evaluate.",
-                type: ApplicationCommandOptionType.String,
-                required: true // String type by default
-            }
-        ]
+const evalCommand: Command = {
+    build() {
+        return new SlashCommandBuilder()
+            .setName("eval")
+            .setDescription("Evaluate JavaScript code")
+            .addStringOption(option =>
+                option.setName('code')
+                    .setDescription('The input to echo back'))
+            .toJSON();
     },
     opt: {
+        owner: true,
+        serverOwner: false,
+        category: 'Admin',
+        cooldown: 5,
         userPermissions: ['SendMessages'],
         botPermissions: ['SendMessages'],
-        category: 'Admin',
-        cooldown: 5
     },
     async execute(interaction: ChatInputCommandInteraction<'cached'>) {
         
@@ -43,4 +38,5 @@ export default {
         );
         await interaction.reply({ embeds: [evaluateEmbed] });
     }
-} satisfies Command;
+};
+export default evalCommand;

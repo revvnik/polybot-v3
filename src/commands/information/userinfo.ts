@@ -1,38 +1,32 @@
-import { type ChatInputCommandInteraction, ApplicationCommandType, ApplicationCommandOptionType, EmbedBuilder } from 'discord.js';
+import { SlashCommandBuilder, ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
 import type { Command } from '../../structures/types/Command.js';
 import moment from "moment";
 
-export default {
-    name: "Userinfo",
-    description: "Shows information about a user.",
-    data: {
-        name: 'userinfo',
-        description: 'Shows information about a user.',
-        type: ApplicationCommandType.ChatInput,
-        options: [
-            {
-                name: "user",
-                description: "Select a user to show the information of.",
-                type: ApplicationCommandOptionType.User
-            }
-        ]
+const userinfoCommand: Command = {
+    build() {
+        return new SlashCommandBuilder()
+            .setName('userinfo')
+            .setDescription('Shows information about a user.')
+            .addUserOption(option => 
+                option.setName('user')
+                    .setDescription('Select a user to show the information of.'))
+            .toJSON();
     },
     opt: {
         userPermissions: ['SendMessages'],
         botPermissions: ['SendMessages'],
-        category: '',
-        cooldown: 5
+        category: 'Information',
+        cooldown: 5,
     },
     async execute(interaction: ChatInputCommandInteraction<'cached'>) {
-        
-        const selectedMember = interaction.options.getMember("user") || interaction.member
+        const selectedMember = interaction.options.getMember("user") || interaction.member;
         const selectedUser = selectedMember.user;
 
         const userInfoEmbed = new EmbedBuilder()
             .setAuthor({ name: `Userinfo of ${selectedUser.username}`, iconURL: selectedUser.displayAvatarURL()})
             .setTitle("Avatar URL")
             .setColor("Random")
-            .setURL(selectedUser.avatarURL())
+            .setURL(selectedUser.displayAvatarURL())
             .addFields(
                 {
                     name: "ID",
@@ -44,11 +38,12 @@ export default {
                     value: `${moment(selectedUser.createdAt).format("DD-MM-YYYY HH:mm:ss")}`,
                     inline: true
                 }
-            )
-
+            );
 
         await interaction.reply({
             embeds: [userInfoEmbed]
         });
     }
-} satisfies Command;
+};
+
+export default userinfoCommand;

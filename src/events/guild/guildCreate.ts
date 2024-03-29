@@ -1,24 +1,25 @@
-import { Events, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, } from 'discord.js';
-// import { CustomPermissions } from "../../models/CustomPermissions.js";
-
+import { Events, ButtonBuilder, ActionRowBuilder } from 'discord.js';
 import type { Event } from '../../structures/types/Event.js';
+import { welcomeDiscordLink, welcomeWebsiteLink } from '../../structures/components/Buttons.js';
+import { guildUpdater } from '../client/ready.js';
 
 export default {
-    name: Events.GuildCreate, // As placeholder
+    name: Events.GuildCreate,
     async execute(guild) {
         console.log(
             "New guild:".green.bold,
             guild.name.blue.bold
         );
+        guildUpdater.insertNewGuild(guild.id);
 
-        (await guild.fetchOwner()).user.send("Thanks so much for inviting me! Stay tuned, you will get a message regarding ongoing changes soon, this message will be sent to every server owner.");
+        (await guild.fetchOwner()).user.send({
+            content: "Thanks so much for inviting me! Stay tuned, you will get a message regarding ongoing changes soon, this message will be sent to every server owner.",
+            components: [
+                new ActionRowBuilder<ButtonBuilder>()
+                    .addComponents(welcomeDiscordLink, welcomeWebsiteLink)
+                ]
+        });
 
         
     }
 } satisfies Event<Events.GuildCreate>;
-
-const discordLink = new ButtonBuilder()
-    .setCustomId("welcomeDiscordLink")
-    .setLabel("Discord")
-    .setStyle(ButtonStyle.Link)
-    .setURL("")

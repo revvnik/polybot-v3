@@ -1,26 +1,20 @@
-import { ApplicationCommandType, EmbedBuilder, ApplicationCommandOptionType } from 'discord.js';
-export default {
-    name: "Eval",
-    description: "Evaluate JavaScript code.",
-    owner: true,
-    data: {
-        name: 'eval',
-        description: 'Evaluate JavaScript code.',
-        type: ApplicationCommandType.ChatInput,
-        options: [
-            {
-                name: "code",
-                description: "The code to evaluate.",
-                type: ApplicationCommandOptionType.String,
-                required: true // String type by default
-            }
-        ]
+import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
+const evalCommand = {
+    build() {
+        return new SlashCommandBuilder()
+            .setName("eval")
+            .setDescription("Evaluate JavaScript code")
+            .addStringOption(option => option.setName('code')
+            .setDescription('The input to echo back'))
+            .toJSON();
     },
     opt: {
+        owner: true,
+        serverOwner: false,
+        category: 'Admin',
+        cooldown: 5,
         userPermissions: ['SendMessages'],
         botPermissions: ['SendMessages'],
-        category: 'Admin',
-        cooldown: 5
     },
     async execute(interaction) {
         const toEvaluate = interaction.options.getString("code");
@@ -37,3 +31,4 @@ export default {
         await interaction.reply({ embeds: [evaluateEmbed] });
     }
 };
+export default evalCommand;

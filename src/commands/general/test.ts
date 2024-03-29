@@ -1,23 +1,24 @@
-import { type ChatInputCommandInteraction } from 'discord.js';
-
+import { SlashCommandBuilder } from 'discord.js';
 import type { Command } from '../../structures/types/Command.js';
 
-export default {
-    name: "Test",
-    description: "A command for testing purposes.",
-    data: {
-        name: 'test',
-        description: 'See if the command is working!',
+const testCommand: Command = {
+    build() {
+        return new SlashCommandBuilder()
+            .setName('test')
+            .setDescription('See if the command is working!')
+            .toJSON();
     },
     opt: {
         userPermissions: ['SendMessages'],
         botPermissions: ['SendMessages'],
         category: 'General',
-        cooldown: 5
+        cooldown: 5,
     },
-    async execute(interaction: ChatInputCommandInteraction<'cached'>) {
-        interaction.reply({
+    async execute(interaction) {
+        await interaction.reply({
             content: "The test worked!"
-        })
+        });
     }
-} satisfies Command;
+};
+
+export default testCommand;
