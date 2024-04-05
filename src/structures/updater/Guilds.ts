@@ -1,7 +1,6 @@
 import { client } from "../../index.js";
 import { Guild, IGuild } from "../../schemas/Guild.js";
 import "colorts/lib/string.js";
-
 export class GuildUpdater {
     async updateGuilds() {
         console.log(`Processing`.green.bold, `${client.guilds.cache.size}`.blue.bold, `guilds.`.green.bold); // Log the start and total guilds found
@@ -44,19 +43,26 @@ export class GuildUpdater {
         }
         await guild.members.fetch(); // Load all members for the guild
         const owner = await guild.fetchOwner();
+        const existingData = await Guild.findOne({ guildID: guild.id }).exec();
+
         return {
             guildID: guild.id,
             guildName: guild.name,
             memberCount: guild.memberCount,
             ownerID: owner.id,
             ownerUsername: owner.user?.username || "Unknown",
-            // Assuming default settings for welcome and goodbye:
             welcome: {
-                enabled: false, // Defaulted to false as defined in your schema
+                ...existingData?.welcome,
+                embed: {
+                    ...(existingData?.welcome?.embed || {}),
+                }
                 // channel, content, and embed can be set based on your requirements or left undefined
             },
             goodbye: {
-                enabled: false, // Defaulted to false as defined in your schema
+                ...existingData?.goodbye,
+                embed: {
+                    ...(existingData?.goodbye?.embed || {}),
+                }
                 // channel, content, and embed can be set based on your requirements or left undefined
             },
         };
@@ -81,6 +87,41 @@ export class GuildUpdater {
             }
         } else {
             console.log(`Guild already exists in database: ${guildId}`.yellow.bold);
+        }
+    }
+
+    async deleteGuild(guildId: string) {
+        try {
+            await Guild.findOneAndDelete({ guildID: guildId }).exec();
+            console.log(`Guild data deleted for guild: ${guildId}`.yellow.bold);
+        } catch (error) {
+            console.error(`Failed to delete guild data for guild: ${guildId}`.red.bold, error);
+        }
+    }
+
+    async updateGuildData(guildID: string, newData: Partial<IGuild>): Promise<void> {
+        try {
+            // Find the guild data in the database
+            const existingGuild = await Guild.findOne({ guildID: guildID }).exec();
+            
+            // If the guild data doesn't exist, log an error and return
+            if (!existingGuild) {
+                console.error(`Guild data not found for guild: ${guildID}`.red.bold);
+                return;
+            }
+    
+            // Merge existing data with new data
+            const updatedData = {
+                ...existingGuild.toObject(),
+                ...newData
+            };
+    
+            // Update the guild data in the database
+            await Guild.findOneAndUpdate({ guildID: guildID }, updatedData).exec();
+            console.log(`Guild data updated for guild: ${guildID}`.green.bold);
+        } catch (error) {
+            // Log an error if updating the guild data fails
+            console.error(`Failed to update guild data for guild: ${guildID}`.red.bold, error);
         }
     }
 }

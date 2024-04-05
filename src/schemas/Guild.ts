@@ -11,9 +11,10 @@ const GuildSchema: Schema = new Schema({
         channel: String,
         content: String,
         embed: {
+            embedEnabled: {type: Boolean, default: false},
             description: String,
             color: String,
-            thumbnail: Boolean,
+            thumbnail: String,
             footer: String,
             image: String
         }
@@ -23,9 +24,10 @@ const GuildSchema: Schema = new Schema({
         channel: String,
         content: String,
         embed: {
+            embedEnabled: {type: Boolean, default: false},
             description: String,
             color: String,
-            thumbnail: Boolean,
+            thumbnail: String,
             footer: String,
             image: String
         }
@@ -39,13 +41,14 @@ export interface IGuild extends Document {
     ownerID: string;
     ownerUsername: string;
     welcome: {
-        enabled: boolean;
+        enabled?: boolean;
         channel?: string;
         content?: string;
         embed?: {
+            embedEnabled?: boolean;
             description?: string;
-            color?: string;
-            thumbnail?: boolean;
+            color?: string | number;
+            thumbnail?: string;
             footer?: string;
             image?: string;
         };
@@ -55,6 +58,7 @@ export interface IGuild extends Document {
         channel?: string;
         content?: string;
         embed?: {
+            embedEnabled?: boolean;
             description?: string;
             color?: string;
             thumbnail?: boolean;

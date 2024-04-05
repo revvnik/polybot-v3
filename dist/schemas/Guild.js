@@ -10,9 +10,10 @@ const GuildSchema = new Schema({
         channel: String,
         content: String,
         embed: {
+            embedEnabled: { type: Boolean, default: false },
             description: String,
             color: String,
-            thumbnail: Boolean,
+            thumbnail: String,
             footer: String,
             image: String
         }
@@ -22,9 +23,10 @@ const GuildSchema = new Schema({
         channel: String,
         content: String,
         embed: {
+            embedEnabled: { type: Boolean, default: false },
             description: String,
             color: String,
-            thumbnail: Boolean,
+            thumbnail: String,
             footer: String,
             image: String
         }

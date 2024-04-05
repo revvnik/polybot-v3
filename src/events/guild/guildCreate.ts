@@ -1,23 +1,21 @@
-import { Events, ButtonBuilder, ActionRowBuilder } from 'discord.js';
+import { Events } from 'discord.js';
 import type { Event } from '../../structures/types/Event.js';
-import { welcomeDiscordLink, welcomeWebsiteLink } from '../../structures/components/Buttons.js';
 import { guildUpdater } from '../client/ready.js';
+import { InviteEmbed } from '../../structures/builders/Embed.js';
+import { InviteActionRow } from '../../structures/builders/ActionRow.js';
 
 export default {
     name: Events.GuildCreate,
     async execute(guild) {
         console.log(
-            "New guild:".green.bold,
+            "Bot was added to guild:".green.bold,
             guild.name.blue.bold
         );
         guildUpdater.insertNewGuild(guild.id);
 
         (await guild.fetchOwner()).user.send({
-            content: "Thanks so much for inviting me! Stay tuned, you will get a message regarding ongoing changes soon, this message will be sent to every server owner.",
-            components: [
-                new ActionRowBuilder<ButtonBuilder>()
-                    .addComponents(welcomeDiscordLink, welcomeWebsiteLink)
-                ]
+            embeds: [InviteEmbed],
+            components: [InviteActionRow]
         });
 
         
