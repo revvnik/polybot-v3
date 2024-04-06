@@ -62,7 +62,7 @@ export class ExtendedClient extends Client {
 
     public async connectToDatabase() {
         mongoose.set("strictQuery", true);
-        await mongoose.connect(`mongodb+srv://${config.MONGODBUSERNAME}:${config.MONGODBPASSWORD}@dripdb.ofzip.mongodb.net/PolyBase?retryWrites=true&w=majority`)
+        await mongoose.connect(`mongodb+srv://${config.MONGODBUSERNAME}:${config.MONGODBPASSWORD}@dripdb.ofzip.mongodb.net/Development?retryWrites=true&w=majority`)
         console.log("Database is online!".green.bold);
     }
     /*
